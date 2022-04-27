@@ -30,27 +30,36 @@ class App extends React.Component {
 
   queryProductData() {
     this.query = gql`
-    query {
-      category(input: { title: "${this.state.category}" }) {
-        products {
-          category
-          gallery
-          name
-          brand
-          id
-          inStock
-          prices {
-            currency {
-              label
-              symbol
+      query {
+        category(input: { title: "all" }) {
+          products {
+            category
+            gallery
+            name
+            brand
+            id
+            inStock
+            prices {
+              currency {
+                label
+                symbol
+              }
+              amount
             }
-            amount
+            attributes {
+              id
+              name
+              type
+              items {
+                displayValue
+                id
+                value
+              }
+            }
           }
-           attributes{id, name, type, items{displayValue, id, value}}
         }
       }
-    }
-  `;
+    `;
     this.client
       .query({
         query: this.query,
