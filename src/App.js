@@ -1,25 +1,147 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Head from "./Head";
+import Main from "./Main";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currency: "$",
+      category: "all",
+    };
+
+    this.queryProductData = this.queryProductData.bind(this);
+    this.chooseCurrency = this.chooseCurrency.bind(this);
+    this.setStateFromChildComponent =
+      this.setStateFromChildComponent.bind(this);
+    this.showCategoryName = this.showCategoryName.bind(this);
+    this.changeItemQuantity = this.changeItemQuantity.bind(this);
+  }
+
+  categories = ["all"];
+  products = [];
+
+  client = new ApolloClient({
+    uri: "http://localhost:4000",
+    cache: new InMemoryCache(),
+  });
+
+  queryProductData() {
+    this.query = gql`
+    query {
+      category(input: { title: "${this.state.category}" }) {
+        products {
+          category
+          gallery
+          name
+          brand
+          id
+          inStock
+          prices {
+            currency {
+              label
+              symbol
+            }
+            amount
+          }
+           attributes{id, name, type, items{displayValue, id, value}}
+        }
+      }
+    }
+  `;
+    this.client
+      .query({
+        query: this.query,
+      })
+      .then((result) => {
+        this.setState({
+          ...this.state,
+          products: result.data.category.products,
+        });
+        this.showCategoryName();
+      });
+  }
+
+  showCategoryName() {
+    this.categories = [
+      ...this.categories,
+      ...new Set(
+        this.state.products.map((product) => {
+          return product.category;
+        })
+      ),
+    ];
+
+    this.setState({ ...this.state });
+  }
+
+  setStateFromChildComponent(obj) {
+    this.setState({ ...this.state, ...obj });
+  }
+
+  // choosing currency from currency switching menu
+  chooseCurrency(e) {
+    this.setState({ ...this.state, currency: e.target.dataset.currency });
+  }
+
+  // changing product quantity from product card overlay
+  changeItemQuantity(e, id) {
+    const sigh = e.target.dataset.sigh;
+    const background = document.querySelector(".background-layout");
+
+    if (this.state.productInCard.length === 1 && sigh === "-") {
+      this.setState({ ...this.state, productInCard: [] });
+      background.classList.remove("active");
+      return;
+    }
+
+    let productInCard = [...this.state.productInCard];
+    const newProduct = productInCard.find((product) => product.id === id);
+    if (sigh === "+") {
+      productInCard.push(newProduct);
+      this.setState({ ...this.state, productInCard });
+      return;
+    }
+
+    productInCard.splice(productInCard.indexOf(newProduct), 1);
+    this.setState({ ...this.state, productInCard });
+  }
+
+  // closing currencyMenu by clicking outside of it
+  closeCurrencyMenuFromOutside() {
+    const currencyMenu = document.querySelector(".currency-switcher-menu");
+    const currencyMenuArrow = document.querySelector(
+      ".currency-switcher-arrow-img"
+    );
+
+    currencyMenu.classList.remove("active");
+    currencyMenuArrow.classList.remove("currency-switcher-arrow-active");
+  }
+
+  render() {
+    return (
+      <>
+        <Head
+          productInCard={this.state.productInCard}
+          currency={this.state.currency}
+          productData={this.state.products}
+          chooseCurrency={this.chooseCurrency}
+          changeItemQuantity={this.changeItemQuantity}
+          closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
+        />
+        <Main
+          {...this.state}
+          queryProductData={this.queryProductData}
+          setStateFromChildComponent={this.setStateFromChildComponent}
+          categories={this.categories}
+          showCategoryName={this.showCategoryName}
+          closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
+        />
+      </>
+    );
+  }
 }
 
-export default App;
+export default <App />;
