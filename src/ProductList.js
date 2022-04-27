@@ -14,7 +14,7 @@ export default class ProductList extends React.Component {
   }
 
   render() {
-    if (this.props.products) {
+    if (this.props.products.length) {
       return <>{this.getProductComponent()}</>;
     }
 

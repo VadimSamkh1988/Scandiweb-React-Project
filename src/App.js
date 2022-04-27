@@ -56,10 +56,7 @@ class App extends React.Component {
         query: this.query,
       })
       .then((result) => {
-        this.setState({
-          ...this.state,
-          products: result.data.category.products,
-        });
+        this.products = result.data.category.products;
         this.showCategoryName();
       });
   }
@@ -68,7 +65,7 @@ class App extends React.Component {
     this.categories = [
       ...this.categories,
       ...new Set(
-        this.state.products.map((product) => {
+        this.products.map((product) => {
           return product.category;
         })
       ),
@@ -126,7 +123,7 @@ class App extends React.Component {
         <Head
           productInCard={this.state.productInCard}
           currency={this.state.currency}
-          productData={this.state.products}
+          productData={this.products}
           chooseCurrency={this.chooseCurrency}
           changeItemQuantity={this.changeItemQuantity}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
@@ -134,6 +131,7 @@ class App extends React.Component {
         <Main
           {...this.state}
           queryProductData={this.queryProductData}
+          products={this.products}
           setStateFromChildComponent={this.setStateFromChildComponent}
           categories={this.categories}
           showCategoryName={this.showCategoryName}
