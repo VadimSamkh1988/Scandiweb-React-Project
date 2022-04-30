@@ -34,7 +34,7 @@ export default class Head extends React.Component {
   }
 
   // open or close currency switcher menu
-  toggleCurrencySwitcher(e) {
+  toggleCurrencySwitcher() {
     const switcher = document.querySelector(".currency-switcher-menu");
     const switcherArrow = document.querySelector(
       ".currency-switcher-arrow-img"

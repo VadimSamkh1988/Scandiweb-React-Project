@@ -15,7 +15,9 @@ export default class ProductList extends React.Component {
 
   render() {
     if (this.props.products.length) {
-      return <>{this.getProductComponent()}</>;
+      return (
+        <div className="product-card-wrapper">{this.getProductComponent()}</div>
+      );
     }
 
     this.props.queryProductData();

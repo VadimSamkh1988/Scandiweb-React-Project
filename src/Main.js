@@ -34,12 +34,9 @@ export default class Main extends React.Component {
           onClick={this.props.closeCurrencyMenuFromOutside}>
           <Categories
             setCategory={this.setCategory}
-            showCategoryName={this.props.showCategoryName}
-            categories={this.props.categories}
+            client={this.props.client}
           />
-          <div className="product-card-wrapper">
-            <ProductList {...this.props} />
-          </div>
+          <ProductList {...this.props} />
         </section>
       </>
     );

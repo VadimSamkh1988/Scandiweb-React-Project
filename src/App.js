@@ -20,7 +20,7 @@ class App extends React.Component {
     this.changeItemQuantity = this.changeItemQuantity.bind(this);
   }
 
-  categories = ["all"];
+  categories = [];
   products = [];
 
   client = new ApolloClient({
@@ -66,21 +66,28 @@ class App extends React.Component {
       })
       .then((result) => {
         this.products = result.data.category.products;
-        this.showCategoryName();
+        this.setState({ ...this.state });
+        // this.showCategoryName();
       });
   }
 
   showCategoryName() {
-    this.categories = [
-      ...this.categories,
-      ...new Set(
-        this.products.map((product) => {
-          return product.category;
-        })
-      ),
-    ];
-
-    this.setState({ ...this.state });
+    this.client
+      .query({
+        query: gql`
+          {
+            categories {
+              name
+            }
+          }
+        `,
+      })
+      .then((result) => {
+        result.data.categories.forEach((category) => {
+          this.categories.push(category.name);
+          this.setState({ ...this.state });
+        });
+      });
   }
 
   setStateFromChildComponent(obj) {
@@ -139,11 +146,11 @@ class App extends React.Component {
         />
         <Main
           {...this.state}
+          client={this.client}
           queryProductData={this.queryProductData}
           products={this.products}
           setStateFromChildComponent={this.setStateFromChildComponent}
           categories={this.categories}
-          showCategoryName={this.showCategoryName}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
         />
       </>
