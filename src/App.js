@@ -16,7 +16,6 @@ class App extends React.Component {
     this.chooseCurrency = this.chooseCurrency.bind(this);
     this.setStateFromChildComponent =
       this.setStateFromChildComponent.bind(this);
-    this.showCategoryName = this.showCategoryName.bind(this);
     this.changeItemQuantity = this.changeItemQuantity.bind(this);
   }
 
@@ -67,26 +66,6 @@ class App extends React.Component {
       .then((result) => {
         this.products = result.data.category.products;
         this.setState({ ...this.state });
-        // this.showCategoryName();
-      });
-  }
-
-  showCategoryName() {
-    this.client
-      .query({
-        query: gql`
-          {
-            categories {
-              name
-            }
-          }
-        `,
-      })
-      .then((result) => {
-        result.data.categories.forEach((category) => {
-          this.categories.push(category.name);
-          this.setState({ ...this.state });
-        });
       });
   }
 
