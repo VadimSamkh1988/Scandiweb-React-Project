@@ -129,7 +129,6 @@ class App extends React.Component {
           queryProductData={this.queryProductData}
           products={this.products}
           setStateFromChildComponent={this.setStateFromChildComponent}
-          categories={this.categories}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
         />
       </>

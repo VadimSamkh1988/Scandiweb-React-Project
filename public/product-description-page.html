@@ -33,22 +33,46 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Product List Page</title>
+    <title>Product Description Page</title>
 </head>
 
 <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <section class="product-page-content">
+        <aside class="product-page-gallery">
+            <img src="./img/product.png" width="88px" alt="product gallery" class="product-page-gallery-item" />
+        </aside>
+        <main class="product-page-description-container">
+            <img src="./img/product.png" alt="product" class="product-page-img" width="610px" height="510px" />
+            <div class="product-page-description">
+                <span class="product-page-brand">Apollo</span>
+                <br />
+                <span class="product-page-name">Running short</span>
+                <div class="product-page-attributes">
+                    <span class="product-page-size-title">size</span>
+                    <div class="product-page-size">
+                        <button class="size-attribute">xs</button>
+                        <button class="size-attribute">s</button>
+                        <button class="size-attribute">m</button>
+                        <button class="size-attribute">l</button>
+                    </div>
+                    <span class="product-page-color-title">color</span>
+                    <div class="product-page-color">
+                        <button class="color-attribute"></button>
+                        <button class="color-attribute"></button>
+                        <button class="color-attribute"></button>
+                    </div>
+                    <span class="product-page-price-title">Price</span>
+                    <br />
+                    <span class="product-page-price">$50.00</span>
+                    <br />
+                    <button class="product-page-add-to-card">add to card</button>
+                    <p class="product-page-description-text">
+                        Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </section>
 </body>
 
 </html>
