@@ -3,7 +3,9 @@ import React from "react";
 export default class ProductDescriptionPae extends React.Component {
   render() {
     return (
-      <section className="product-page-content">
+      <section
+        className="product-page-content"
+        onClick={this.props.closeCurrencyMenuFromOutside}>
         <aside className="product-page-gallery">
           <img
             src="./img/product.png"

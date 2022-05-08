@@ -1,7 +1,9 @@
 import React from "react";
 import Head from "./Head";
 import Main from "./Main";
+import ProductDescriptionPage from "./ProductDescriptionPage";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 class App extends React.Component {
   constructor() {
@@ -123,14 +125,36 @@ class App extends React.Component {
           changeItemQuantity={this.changeItemQuantity}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
         />
-        <Main
-          {...this.state}
-          client={this.client}
-          queryProductData={this.queryProductData}
-          products={this.products}
-          setStateFromChildComponent={this.setStateFromChildComponent}
-          closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
-        />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  {...this.state}
+                  client={this.client}
+                  queryProductData={this.queryProductData}
+                  products={this.products}
+                  setStateFromChildComponent={this.setStateFromChildComponent}
+                  closeCurrencyMenuFromOutside={
+                    this.closeCurrencyMenuFromOutside
+                  }
+                  showProductDescriptionPage={this.showProductDescriptionPage}
+                />
+              }
+            />
+            <Route
+              path="ProductDescriptionPage"
+              element={
+                <ProductDescriptionPage
+                  closeCurrencyMenuFromOutside={
+                    this.closeCurrencyMenuFromOutside
+                  }
+                />
+              }
+            />
+          </Routes>
+        </BrowserRouter>
       </>
     );
   }

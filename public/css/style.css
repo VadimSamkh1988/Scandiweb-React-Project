@@ -12,6 +12,7 @@ ul {
 
 a {
     text-decoration: none;
+    color: #000;
 }
 
 .active {
@@ -434,8 +435,8 @@ a {
 .product-add-to-card {
     display: none;
     position: absolute;
-    bottom: -50px;
-    right: 0;
+    bottom: 60px;
+    right: 20px;
     z-index: 2;
     cursor: pointer;
 }
@@ -467,6 +468,7 @@ a {
 }
 
 .product-page-content {
+    padding-top: 80px;
     margin-left: 100px;
     margin-right: 100px;
 }
