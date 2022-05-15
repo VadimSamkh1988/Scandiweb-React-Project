@@ -106,6 +106,7 @@ export default class Head extends React.Component {
         <CardOverlay {...this.props} />
 
         <ul className="currency-switcher-menu"></ul>
+        <div className="background-layout"> </div>
       </>
     );
   }

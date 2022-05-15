@@ -56,7 +56,7 @@ export default class Product extends React.Component {
   render() {
     return (
       <div className="product-card" data-product-id={this.props.id}>
-        <Link to="/ProductDescriptionPage">
+        <Link to={`/products/${this.props.id}`}>
           <div className="product-image">
             <img
               className="product-image-content"

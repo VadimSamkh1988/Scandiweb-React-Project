@@ -339,9 +339,9 @@ a {
 .categories-filter {
     justify-content: start;
     margin-top: 0;
-    margin-bottom: 100px;
+    margin-bottom: 0;
     padding-top: 60px;
-    padding-left: 0;
+    padding-left: 100px;
 }
 
 .categories-filter-item {
@@ -368,6 +368,7 @@ a {
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 0, auto;
+    padding: 100px;
 }
 
 .product-card {
@@ -606,4 +607,9 @@ a {
     font-size: 16px;
     line-height: 159.96%;
     color: #1d1f22;
+}
+
+.page-not-found {
+    margin-top: 50px;
+    text-align: center;
 }

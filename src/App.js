@@ -1,9 +1,10 @@
 import React from "react";
 import Head from "./Head";
-import Main from "./Main";
-import ProductDescriptionPage from "./ProductDescriptionPage";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import ProductList from "./ProductList";
+import Categories from "./Categories";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProductDescriptionPage from "./routes/ProductDescriptionPage";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 class App extends React.Component {
   constructor() {
@@ -19,6 +20,7 @@ class App extends React.Component {
     this.setStateFromChildComponent =
       this.setStateFromChildComponent.bind(this);
     this.changeItemQuantity = this.changeItemQuantity.bind(this);
+    this.setCategory = this.setCategory.bind(this);
   }
 
   categories = [];
@@ -114,9 +116,25 @@ class App extends React.Component {
     currencyMenuArrow.classList.remove("currency-switcher-arrow-active");
   }
 
+  /* set category name to either "all", or one of those coming from API*/
+  setCategory(e) {
+    const categories = document.querySelectorAll(".categories-filter-item");
+
+    [...categories]
+      .filter((item) => item !== e.target)
+      .forEach((item) => item.classList.remove("active-category"));
+
+    e.target.classList.add("active-category");
+
+    if (this.props.category !== e.target.dataset.categoryName)
+      this.setStateFromChildComponent({
+        category: e.target.dataset.categoryName,
+      });
+  }
+
   render() {
     return (
-      <>
+      <BrowserRouter>
         <Head
           productInCard={this.state.productInCard}
           currency={this.state.currency}
@@ -125,37 +143,50 @@ class App extends React.Component {
           changeItemQuantity={this.changeItemQuantity}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
         />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  {...this.state}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Categories
+                  setCategory={this.setCategory}
                   client={this.client}
-                  queryProductData={this.queryProductData}
+                  closeCurrencyMenuFromOutside={
+                    this.closeCurrencyMenuFromOutside
+                  }
+                />
+
+                <ProductList
+                  {...this.state}
                   products={this.products}
+                  queryProductData={this.queryProductData}
                   setStateFromChildComponent={this.setStateFromChildComponent}
                   closeCurrencyMenuFromOutside={
                     this.closeCurrencyMenuFromOutside
                   }
-                  showProductDescriptionPage={this.showProductDescriptionPage}
                 />
-              }
-            />
-            <Route
-              path="ProductDescriptionPage"
-              element={
-                <ProductDescriptionPage
-                  closeCurrencyMenuFromOutside={
-                    this.closeCurrencyMenuFromOutside
-                  }
-                />
-              }
-            />
-          </Routes>
-        </BrowserRouter>
-      </>
+              </>
+            }
+          />
+          <Route
+            path="/products/:product-id"
+            element={
+              <ProductDescriptionPage
+                products={this.products}
+                onClick={this.closeCurrencyMenuFromOutside}
+              />
+            }></Route>
+          <Route
+            path="*"
+            element={
+              <h2
+                className="page-not-found"
+                onClick={this.closeCurrencyMenuFromOutside}>
+                Opps! There is nothing here...
+              </h2>
+            }></Route>
+        </Routes>
+      </BrowserRouter>
     );
   }
 }

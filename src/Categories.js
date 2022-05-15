@@ -45,7 +45,9 @@ export default class Categories extends React.Component {
     if (!this.categories.length) this.fetchCategoryData();
 
     return (
-      <ul className="categories-filter">
+      <ul
+        className="categories-filter"
+        onClick={this.props.closeCurrencyMenuFromOutside}>
         {this.categories.map((category) => {
           return this.showCategoryName(category);
         })}

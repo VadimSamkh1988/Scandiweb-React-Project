@@ -16,7 +16,11 @@ export default class ProductList extends React.Component {
   render() {
     if (this.props.products.length) {
       return (
-        <div className="product-card-wrapper">{this.getProductComponent()}</div>
+        <div
+          className="product-card-wrapper"
+          onClick={this.props.closeCurrencyMenuFromOutside}>
+          {this.getProductComponent()}
+        </div>
       );
     }
 
