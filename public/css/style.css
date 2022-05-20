@@ -69,8 +69,9 @@ a {
     margin-top: 0;
     margin-right: 125px;
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-    z-index: 2;
+    z-index: 3;
     text-transform: uppercase;
+    background-color: #fff;
 }
 
 .currency-switcher-item {
@@ -472,6 +473,7 @@ a {
     padding-top: 80px;
     margin-left: 100px;
     margin-right: 100px;
+    justify-content: space-between;
 }
 
 .product-page-description-container,
@@ -481,10 +483,23 @@ a {
 
 .product-page-gallery {
     margin-right: 40px;
+    width: 100px;
+}
+
+.product-page-gallery-item {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.product-page-img-wrapper {
+    width: 600px;
+    margin-right: 100px;
+    margin-bottom: 10px;
 }
 
 .product-page-img {
-    margin-right: 100px;
+    max-width: 600px;
+    height: 600px;
 }
 
 .product-page-description {
@@ -507,7 +522,7 @@ a {
     font-family: "Raleway";
     font-style: normal;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 25px;
     line-height: 27px;
     color: #1d1f22;
     margin-bottom: 38px;

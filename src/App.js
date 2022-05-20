@@ -42,6 +42,7 @@ class App extends React.Component {
             brand
             id
             inStock
+            description
             prices {
               currency {
                 label
@@ -77,7 +78,7 @@ class App extends React.Component {
     this.setState({ ...this.state, ...obj });
   }
 
-  // choosing currency from currency switching menu
+  // choosing currency from currency Routesing menu
   chooseCurrency(e) {
     this.setState({ ...this.state, currency: e.target.dataset.currency });
   }
@@ -169,11 +170,12 @@ class App extends React.Component {
             }
           />
           <Route
-            path="/products/:product-id"
+            path="/products/:id"
             element={
               <ProductDescriptionPage
                 products={this.products}
-                onClick={this.closeCurrencyMenuFromOutside}
+                closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
+                currency={this.state.currency}
               />
             }></Route>
           <Route
