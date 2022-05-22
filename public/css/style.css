@@ -492,14 +492,16 @@ a {
 }
 
 .product-page-img-wrapper {
-    width: 600px;
+    width: 700px;
     margin-right: 100px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .product-page-img {
     max-width: 600px;
-    height: 600px;
+    max-height: 600px;
 }
 
 .product-page-description {

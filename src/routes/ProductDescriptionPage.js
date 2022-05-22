@@ -1,3 +1,4 @@
+import { throwServerError } from "@apollo/client";
 import { Parser } from "graphql/language/parser";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -11,6 +12,49 @@ class ProductDescriptionPage extends React.Component {
     (product) => product.id === this.props.params.id
   );
   productImage = this.product.gallery[0];
+
+  // checks, wheither product has attributes, and renders them
+  showAttributesIfpresent() {
+    if (this.product.attributes.length > 0) {
+      const attributes = this.product.attributes;
+      console.log(attributes);
+      return attributes.map((item) => {
+        if (item.type === "text") {
+          return (
+            <>
+              <span className="product-page-size-title">{item.name}:</span>
+              <div className="product-page-size">
+                {item.items.map((item) => {
+                  return (
+                    <button className="size-attribute" key={item.id}>
+                      {item.value}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          );
+        } else if (item.type === "swatch") {
+          return (
+            <>
+              <span className="product-page-color-title">{item.name}:</span>
+              <div className="product-page-color">
+                {item.items.map((item) => {
+                  return (
+                    <button
+                      key={item.id}
+                      className="color-attribute"
+                      style={{ backgroundColor: `${item.value}` }}
+                    />
+                  );
+                })}
+              </div>
+            </>
+          );
+        }
+      });
+    }
+  }
 
   // choosing product image from the gallery on left side of the page
   chooseProductImage(e) {
@@ -50,19 +94,7 @@ class ProductDescriptionPage extends React.Component {
             <br />
             <span className="product-page-name"> {this.product.name} </span>
             <div className="product-page-attributes">
-              <span className="product-page-size-title"> size </span>
-              <div className="product-page-size">
-                <button className="size-attribute"> xs </button>
-                <button className="size-attribute"> s </button>
-                <button className="size-attribute"> m </button>
-                <button className="size-attribute"> l </button>
-              </div>
-              <span className="product-page-color-title"> color </span>
-              <div className="product-page-color">
-                <button className="color-attribute"> </button>
-                <button className="color-attribute"> </button>
-                <button className="color-attribute"> </button>
-              </div>
+              {this.showAttributesIfpresent()}
               <span className="product-page-price-title"> Price </span> <br />
               <span className="product-page-price">
                 {this.props.currency}
