@@ -2,9 +2,10 @@ import React from "react";
 import Head from "./Head";
 import ProductList from "./ProductList";
 import Categories from "./Categories";
+import query from "./dataQuery";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDescriptionPage from "./routes/ProductDescriptionPage";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 class App extends React.Component {
   constructor() {
@@ -14,6 +15,11 @@ class App extends React.Component {
       currency: "$",
       category: "all",
     };
+
+    this.client = new ApolloClient({
+      uri: "http://localhost:4000",
+      cache: new InMemoryCache(),
+    });
 
     this.queryProductData = this.queryProductData.bind(this);
     this.chooseCurrency = this.chooseCurrency.bind(this);
@@ -26,47 +32,10 @@ class App extends React.Component {
   categories = [];
   products = [];
 
-  client = new ApolloClient({
-    uri: "http://localhost:4000",
-    cache: new InMemoryCache(),
-  });
-
   queryProductData() {
-    this.query = gql`
-      query {
-        category(input: { title: "all" }) {
-          products {
-            category
-            gallery
-            name
-            brand
-            id
-            inStock
-            description
-            prices {
-              currency {
-                label
-                symbol
-              }
-              amount
-            }
-            attributes {
-              id
-              name
-              type
-              items {
-                displayValue
-                id
-                value
-              }
-            }
-          }
-        }
-      }
-    `;
     this.client
       .query({
-        query: this.query,
+        query,
       })
       .then((result) => {
         this.products = result.data.category.products;
