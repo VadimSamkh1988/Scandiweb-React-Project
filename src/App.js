@@ -2,10 +2,9 @@ import React from "react";
 import Head from "./Head";
 import ProductList from "./ProductList";
 import Categories from "./Categories";
-import query from "./dataQuery";
+import { client, dataQuery } from "./dataQueries";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDescriptionPage from "./routes/ProductDescriptionPage";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 class App extends React.Component {
   constructor() {
@@ -16,11 +15,6 @@ class App extends React.Component {
       category: "all",
     };
 
-    this.client = new ApolloClient({
-      uri: "http://localhost:4000",
-      cache: new InMemoryCache(),
-    });
-
     this.queryProductData = this.queryProductData.bind(this);
     this.chooseCurrency = this.chooseCurrency.bind(this);
     this.setStateFromChildComponent =
@@ -29,13 +23,12 @@ class App extends React.Component {
     this.setCategory = this.setCategory.bind(this);
   }
 
-  categories = [];
   products = [];
 
   queryProductData() {
-    this.client
+    client
       .query({
-        query,
+        query: dataQuery,
       })
       .then((result) => {
         this.products = result.data.category.products;
@@ -119,6 +112,7 @@ class App extends React.Component {
             element={
               <>
                 <Categories
+                  category={this.state.category}
                   setCategory={this.setCategory}
                   client={this.client}
                   closeCurrencyMenuFromOutside={
