@@ -1,7 +1,7 @@
-import { throwServerError } from "@apollo/client";
-import { Parser } from "graphql/language/parser";
 import React from "react";
 import { useParams } from "react-router-dom";
+import TextAttributes from "../TextAttributes";
+import SwatchAttributes from "../SwatchAttributes";
 
 function withParams(Component) {
   return (props) => <Component params={useParams()} {...props} />;
@@ -17,41 +17,9 @@ class ProductDescriptionPage extends React.Component {
   showAttributesIfpresent() {
     if (this.product.attributes.length > 0) {
       const attributes = this.product.attributes;
-      console.log(attributes);
       return attributes.map((item) => {
-        if (item.type === "text") {
-          return (
-            <>
-              <span className="product-page-size-title">{item.name}:</span>
-              <div className="product-page-size">
-                {item.items.map((item) => {
-                  return (
-                    <button className="size-attribute" key={item.id}>
-                      {item.value}
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          );
-        } else if (item.type === "swatch") {
-          return (
-            <>
-              <span className="product-page-color-title">{item.name}:</span>
-              <div className="product-page-color">
-                {item.items.map((item) => {
-                  return (
-                    <button
-                      key={item.id}
-                      className="color-attribute"
-                      style={{ backgroundColor: `${item.value}` }}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          );
-        }
+        if (item.type === "text") return <TextAttributes attr={item} />;
+        if (item.type === "swatch") return <SwatchAttributes attr={item} />;
       });
     }
   }
