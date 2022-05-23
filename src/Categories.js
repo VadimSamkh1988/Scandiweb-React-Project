@@ -7,7 +7,7 @@ export default class Categories extends React.Component {
     return (
       <li
         className={
-          category === "all"
+          category === this.props.category
             ? "categories-filter-item active-category"
             : "categories-filter-item"
         }
