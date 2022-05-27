@@ -1,23 +1,24 @@
 import React from "react";
+import ChangeItemQuantityButton from "./ChangeItemQuantityButton";
 
 export default class CardOverlayProductCount extends React.Component {
   render() {
     return (
       <>
         <div className="bag-container-item-manage">
-          <button
+          <ChangeItemQuantityButton
             className="add-item"
-            data-sigh="+"
-            onClick={(e) => this.props.changeItemQuantity(e, this.props.id)}>
-            +
-          </button>
+            dataSigh="+"
+            changeItemQuantity={this.props.changeItemQuantity}
+            id={this.props.id}
+          />
           <span className="item-count">{this.props.count}</span>
-          <button
+          <ChangeItemQuantityButton
             className="substrat-item"
-            data-sigh="-"
-            onClick={(e) => this.props.changeItemQuantity(e, this.props.id)}>
-            -
-          </button>
+            dataSigh="-"
+            changeItemQuantity={this.props.changeItemQuantity}
+            id={this.props.id}
+          />
         </div>
         <img
           src={this.props.product.gallery[0]}
