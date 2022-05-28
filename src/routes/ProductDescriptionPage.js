@@ -16,13 +16,12 @@ class ProductDescriptionPage extends React.Component {
   // parsing HMTL data with product description
   parseHTMLProductDescripionData() {
     const parent = document.querySelector(".product-page-description-text");
-    const htmlStr = this.product.description;
     const parser = new DOMParser();
-    const html = parser
-      .parseFromString(htmlStr, "text/html")
-      .getElementsByTagName("*")[0];
-    parent.appendChild(html);
-    console.log(html);
+    let html = parser.parseFromString(this.product.description, "text/html");
+
+    html.getElementsByTagName("body")
+      ? (parent.innerHTML = html.getElementsByTagName("body")[0].innerHTML)
+      : (parent.innerHTML = html);
   }
 
   // checks, wheither product has attributes, and renders them
@@ -90,7 +89,7 @@ class ProductDescriptionPage extends React.Component {
               </span>
               <br />
               <button className="product-page-add-to-card">add to card</button>
-              <p className="product-page-description-text"></p>
+              <div className="product-page-description-text"></div>
             </div>
           </div>
         </main>
