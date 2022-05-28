@@ -618,6 +618,7 @@ a {
 }
 
 .product-page-description-text {
+    display: block;
     font-family: "Roboto";
     font-style: normal;
     font-weight: 400;

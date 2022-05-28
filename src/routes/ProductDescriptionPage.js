@@ -13,6 +13,18 @@ class ProductDescriptionPage extends React.Component {
   );
   productImage = this.product.gallery[0];
 
+  // parsing HMTL data with product description
+  parseHTMLProductDescripionData() {
+    const parent = document.querySelector(".product-page-description-text");
+    const htmlStr = this.product.description;
+    const parser = new DOMParser();
+    const html = parser
+      .parseFromString(htmlStr, "text/html")
+      .getElementsByTagName("*")[0];
+    parent.appendChild(html);
+    console.log(html);
+  }
+
   // checks, wheither product has attributes, and renders them
   showAttributesIfpresent() {
     if (this.product.attributes.length > 0) {
@@ -28,6 +40,10 @@ class ProductDescriptionPage extends React.Component {
   chooseProductImage(e) {
     const img = document.querySelector(".product-page-img");
     img.src = e.target.src;
+  }
+
+  componentDidMount() {
+    this.parseHTMLProductDescripionData();
   }
 
   render() {
@@ -74,7 +90,7 @@ class ProductDescriptionPage extends React.Component {
               </span>
               <br />
               <button className="product-page-add-to-card">add to card</button>
-              <p className="product-page-description-text">{}</p>
+              <p className="product-page-description-text"></p>
             </div>
           </div>
         </main>
