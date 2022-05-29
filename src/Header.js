@@ -1,4 +1,8 @@
 import React from "react";
+import logo from "./images/logo.svg";
+import currencyArrow from "./images/currency-arrow.svg";
+import bag from "./images/bag.svg";
+import "../src/css/style.css";
 
 export default class Header extends React.Component {
   showProductQuantityInCard() {
@@ -19,7 +23,7 @@ export default class Header extends React.Component {
         </ul>
 
         <div className="header-logo">
-          <img src="./img/logo.svg" width="31px" alt="logo" />
+          <img src={logo} width="31px" alt="logo" />
         </div>
 
         <ul className="currency-bag-container">
@@ -31,13 +35,13 @@ export default class Header extends React.Component {
           <li className="currency-switcher-arrow">
             <img
               className="currency-switcher-arrow-img"
-              src="./img/currency-arrow.svg"
+              src={currencyArrow}
               alt="currency arrow"
             />
           </li>
           <li className="bag-switcher">
             <img
-              src="./img/bag.svg"
+              src={bag}
               className="bag-switcher-img"
               alt="bag logo"
               onClick={this.props.closeCurrencyMenuFromOutside}

@@ -8,10 +8,18 @@ function withParams(Component) {
 }
 
 class ProductDescriptionPage extends React.Component {
-  product = this.props.products.find(
-    (product) => product.id === this.props.params.id
-  );
-  productImage = this.product.gallery[0];
+  constructor(props) {
+    super(props);
+
+    this.product =
+      this.props.products.find(
+        (product) => product.id === this.props.params.id
+      ) || JSON.parse(localStorage.getItem("product"));
+
+    localStorage.clear();
+    localStorage.setItem("product", JSON.stringify(this.product));
+    console.log(this.product);
+  }
 
   // parsing HMTL data with product description
   parseHTMLProductDescripionData() {
@@ -67,7 +75,7 @@ class ProductDescriptionPage extends React.Component {
         <main className="product-page-description-container">
           <div className="product-page-img-wrapper">
             <img
-              src={this.productImage}
+              src={this.product.gallery[0]}
               alt="product"
               className="product-page-img"
             />

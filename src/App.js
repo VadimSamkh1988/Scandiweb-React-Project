@@ -5,6 +5,8 @@ import Categories from "./Categories";
 import { client, dataQuery } from "./dataQueries";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDescriptionPage from "./routes/ProductDescriptionPage";
+import "./css/style.css";
+import "./css/normalize.css";
 
 class App extends React.Component {
   constructor() {
