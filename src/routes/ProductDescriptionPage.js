@@ -16,7 +16,7 @@ class ProductDescriptionPage extends React.Component {
         (product) => product.id === this.props.params.id
       ) || JSON.parse(localStorage.getItem("product"));
 
-    localStorage.clear();
+    localStorage.removeItem("product");
     localStorage.setItem("product", JSON.stringify(this.product));
     console.log(this.product);
   }

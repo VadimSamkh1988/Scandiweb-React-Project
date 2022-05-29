@@ -14,7 +14,9 @@ class App extends React.Component {
 
     this.state = {
       currency: "$",
-      category: "all",
+      category: localStorage.getItem("category")
+        ? JSON.parse(localStorage.getItem("category"))
+        : "all",
     };
 
     this.queryProductData = this.queryProductData.bind(this);
@@ -42,7 +44,7 @@ class App extends React.Component {
     this.setState({ ...this.state, ...obj });
   }
 
-  // choosing currency from currency Routesing menu
+  // choosing currency from currency changing menu
   chooseCurrency(e) {
     this.setState({ ...this.state, currency: e.target.dataset.currency });
   }
@@ -95,6 +97,11 @@ class App extends React.Component {
       this.setStateFromChildComponent({
         category: e.target.dataset.categoryName,
       });
+
+    localStorage.setItem(
+      "category",
+      JSON.stringify(e.target.dataset.categoryName)
+    );
   }
 
   render() {
