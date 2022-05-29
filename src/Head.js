@@ -27,7 +27,9 @@ export default class Head extends React.Component {
       );
     });
 
-    currenciesList.childNodes[0].classList.add("active-category");
+    [...currenciesList.childNodes]
+      .find((node) => node.dataset.currency === this.props.currency)
+      .classList.add("active-category");
     currenciesList.childNodes.forEach((item) =>
       item.addEventListener("click", (e) => this.clickOnCurrencyMenu(e))
     );

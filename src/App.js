@@ -14,6 +14,9 @@ class App extends React.Component {
 
     this.state = {
       currency: "$",
+      currency: localStorage.getItem("currency")
+        ? JSON.parse(localStorage.getItem("currency"))
+        : "$",
       category: localStorage.getItem("category")
         ? JSON.parse(localStorage.getItem("category"))
         : "all",
@@ -47,6 +50,7 @@ class App extends React.Component {
   // choosing currency from currency changing menu
   chooseCurrency(e) {
     this.setState({ ...this.state, currency: e.target.dataset.currency });
+    localStorage.setItem("currency", JSON.stringify(e.target.dataset.currency));
   }
 
   // changing product quantity from product card overlay
