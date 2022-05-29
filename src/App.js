@@ -13,13 +13,16 @@ class App extends React.Component {
     super();
 
     this.state = {
-      currency: "$",
       currency: localStorage.getItem("currency")
         ? JSON.parse(localStorage.getItem("currency"))
         : "$",
       category: localStorage.getItem("category")
         ? JSON.parse(localStorage.getItem("category"))
         : "all",
+      productInCard:
+        localStorage.getItem("productInCard") !== ""
+          ? JSON.parse(localStorage.getItem("productInCard"))
+          : "",
     };
 
     this.queryProductData = this.queryProductData.bind(this);
@@ -61,6 +64,7 @@ class App extends React.Component {
     if (this.state.productInCard.length === 1 && sigh === "-") {
       this.setState({ ...this.state, productInCard: [] });
       background.classList.remove("active");
+      localStorage.removeItem("productInCard");
       return;
     }
 
@@ -69,11 +73,13 @@ class App extends React.Component {
     if (sigh === "+") {
       productInCard.push(newProduct);
       this.setState({ ...this.state, productInCard });
+      localStorage.setItem("productInCard", JSON.stringify(productInCard));
       return;
     }
 
     productInCard.splice(productInCard.indexOf(newProduct), 1);
     this.setState({ ...this.state, productInCard });
+    localStorage.setItem("productInCard", JSON.stringify(productInCard));
   }
 
   // closing currencyMenu by clicking outside of it
@@ -152,6 +158,7 @@ class App extends React.Component {
                 products={this.products}
                 closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
                 currency={this.state.currency}
+                changeItemQuantity={this.changeItemQuantity}
               />
             }></Route>
           <Route

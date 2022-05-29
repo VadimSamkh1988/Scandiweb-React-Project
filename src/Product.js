@@ -51,6 +51,7 @@ export default class Product extends React.Component {
     this.props.setStateFromChildComponent({
       productInCard,
     });
+    localStorage.setItem("productInCard", JSON.stringify(productInCard));
   }
 
   render() {
