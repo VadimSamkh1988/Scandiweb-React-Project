@@ -14,6 +14,12 @@ export default class SwatchAttributes extends React.Component {
                 key={item.id}
                 className="color-attribute"
                 style={{ backgroundColor: `${item.value}` }}
+                onClick={() =>
+                  this.props.getProductAttributeValue({
+                    name: this.props.attr.name.toLowerCase(),
+                    value: item.id.toLowerCase(),
+                  })
+                }
               />
             );
           })}

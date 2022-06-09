@@ -5,6 +5,7 @@ import bag from "./images/bag.svg";
 import "../src/css/style.css";
 
 export default class Header extends React.Component {
+  // showing product quantity in the product bag
   showProductQuantityInCard() {
     if (this.props.productInCard && this.props.productInCard.length)
       return (
@@ -13,6 +14,7 @@ export default class Header extends React.Component {
         </div>
       );
   }
+
   render() {
     return (
       <nav className="header" onClick={(e) => this.props.toggleMenus(e)}>

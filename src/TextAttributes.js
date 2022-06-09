@@ -8,7 +8,15 @@ export default class TextAttributes extends React.Component {
         <div className="product-page-size">
           {this.props.attr.items.map((item) => {
             return (
-              <button className="size-attribute" key={item.id}>
+              <button
+                className="size-attribute"
+                key={item.id}
+                onClick={() =>
+                  this.props.getProductAttributeValue({
+                    name: this.props.attr.name.toLowerCase(),
+                    value: item.id.toLowerCase(),
+                  })
+                }>
                 {item.value}
               </button>
             );

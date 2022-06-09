@@ -35,6 +35,7 @@ class App extends React.Component {
 
   products = [];
 
+  // fetching product data from API
   queryProductData() {
     client
       .query({
@@ -46,6 +47,7 @@ class App extends React.Component {
       });
   }
 
+  // changing state from child components
   setStateFromChildComponent(obj) {
     this.setState({ ...this.state, ...obj });
   }
@@ -159,6 +161,8 @@ class App extends React.Component {
                 closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
                 currency={this.state.currency}
                 changeItemQuantity={this.changeItemQuantity}
+                setStateFromChildComponent={this.setStateFromChildComponent}
+                productInCard={this.state.productInCard}
               />
             }></Route>
           <Route

@@ -18,8 +18,11 @@ class ProductDescriptionPage extends React.Component {
 
     localStorage.removeItem("product");
     localStorage.setItem("product", JSON.stringify(this.product));
-    console.log(this.product);
+
+    this.getProductAttributeValue = this.getProductAttributeValue.bind(this);
   }
+
+  productAttributes = [];
 
   // parsing HMTL data with product description
   parseHTMLProductDescripionData() {
@@ -37,8 +40,20 @@ class ProductDescriptionPage extends React.Component {
     if (this.product.attributes.length > 0) {
       const attributes = this.product.attributes;
       return attributes.map((item) => {
-        if (item.type === "text") return <TextAttributes attr={item} />;
-        if (item.type === "swatch") return <SwatchAttributes attr={item} />;
+        if (item.type === "text")
+          return (
+            <TextAttributes
+              attr={item}
+              getProductAttributeValue={this.getProductAttributeValue}
+            />
+          );
+        if (item.type === "swatch")
+          return (
+            <SwatchAttributes
+              attr={item}
+              getProductAttributeValue={this.getProductAttributeValue}
+            />
+          );
       });
     }
   }
@@ -51,6 +66,29 @@ class ProductDescriptionPage extends React.Component {
 
   componentDidMount() {
     this.parseHTMLProductDescripionData();
+  }
+
+  /* adding product to card if all nessesary attributes are choosen */
+  addProductToCard() {
+    if (
+      !this.productAttributes.length === 0 ||
+      this.productAttributes.length !== this.product.attributes.length
+    )
+      this.props.setStateFromChildComponent(
+        this.props.productInCard.push(this.product)
+      );
+    console.log(this.props.productInCard);
+  }
+
+  /* gets product attribute value, when user clicks on attribute button */
+  getProductAttributeValue(attr) {
+    if (!this.productAttributes.find((item) => item.name === attr.name)) {
+      this.productAttributes.push(attr);
+      console.log(this.productAttributes);
+      return;
+    }
+    this.productAttributes.find((item) => item.name === attr.name).value =
+      attr.value;
   }
 
   render() {
@@ -96,7 +134,11 @@ class ProductDescriptionPage extends React.Component {
                 }
               </span>
               <br />
-              <button className="product-page-add-to-card">add to card</button>
+              <button
+                className="product-page-add-to-card"
+                onClick={() => this.addProductToCard()}>
+                add to card
+              </button>
               <div className="product-page-description-text"></div>
             </div>
           </div>
