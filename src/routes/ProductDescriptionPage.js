@@ -71,13 +71,22 @@ class ProductDescriptionPage extends React.Component {
   /* adding product to card if all nessesary attributes are choosen */
   addProductToCard() {
     if (
-      !this.productAttributes.length === 0 ||
-      this.productAttributes.length !== this.product.attributes.length
-    )
-      this.props.setStateFromChildComponent(
-        this.props.productInCard.push(this.product)
-      );
-    console.log(this.props.productInCard);
+      !(
+        this.productAttributes.length === 0 ||
+        this.productAttributes.length !== this.product.attributes.length
+      )
+    ) {
+      this.props.productInCard
+        ? this.props.setStateFromChildComponent({
+            productInCard: [...this.props.productInCard, this.product],
+          })
+        : this.props.setStateFromChildComponent({
+            productInCard: [this.product],
+          });
+      return;
+    }
+
+    console.log("attributes required!");
   }
 
   /* gets product attribute value, when user clicks on attribute button */
