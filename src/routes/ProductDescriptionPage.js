@@ -2,6 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import TextAttributes from "../TextAttributes";
 import SwatchAttributes from "../SwatchAttributes";
+import AddToCardButton from "./AddToCardButton";
+import ProductCardGalleryImage from "./ProductCardGalleryImage";
+import ProductCardMainImage from "./ProductCardMainImage";
 
 function withParams(Component) {
   return (props) => <Component params={useParams()} {...props} />;
@@ -20,6 +23,7 @@ class ProductDescriptionPage extends React.Component {
     localStorage.setItem("product", JSON.stringify(this.product));
 
     this.getProductAttributeValue = this.getProductAttributeValue.bind(this);
+    this.makeAttributeButtonActive = this.makeAttributeButtonActive.bind(this);
   }
 
   productAttributes = [];
@@ -45,6 +49,8 @@ class ProductDescriptionPage extends React.Component {
             <TextAttributes
               attr={item}
               getProductAttributeValue={this.getProductAttributeValue}
+              makeAttributeButtonActive={this.makeAttributeButtonActive}
+              key={item.name}
             />
           );
         if (item.type === "swatch")
@@ -52,52 +58,63 @@ class ProductDescriptionPage extends React.Component {
             <SwatchAttributes
               attr={item}
               getProductAttributeValue={this.getProductAttributeValue}
+              makeAttributeButtonActive={this.makeAttributeButtonActive}
+              key={item.name}
             />
           );
       });
     }
   }
 
-  // choosing product image from the gallery on left side of the page
-  chooseProductImage(e) {
-    const img = document.querySelector(".product-page-img");
-    img.src = e.target.src;
-  }
-
   componentDidMount() {
     this.parseHTMLProductDescripionData();
   }
 
-  /* adding product to card if all nessesary attributes are choosen */
-  addProductToCard() {
+  /* gets product attribute value, when user clicks on attribute button */
+  getProductAttributeValue(e) {
     if (
-      !(
-        this.productAttributes.length === 0 ||
-        this.productAttributes.length !== this.product.attributes.length
+      !this.productAttributes.find(
+        (item) => item.name === e.target.dataset.attributeName
       )
     ) {
-      this.props.productInCard
-        ? this.props.setStateFromChildComponent({
-            productInCard: [...this.props.productInCard, this.product],
-          })
-        : this.props.setStateFromChildComponent({
-            productInCard: [this.product],
-          });
+      this.productAttributes.push({
+        name: e.target.dataset.attributeName,
+        value: e.target.dataset.attributeValue,
+      });
       return;
     }
 
-    console.log("attributes required!");
+    this.productAttributes.find(
+      (item) => item.name === e.target.dataset.attributeName
+    ).value = e.target.dataset.attributeValue;
   }
 
-  /* gets product attribute value, when user clicks on attribute button */
-  getProductAttributeValue(attr) {
-    if (!this.productAttributes.find((item) => item.name === attr.name)) {
-      this.productAttributes.push(attr);
-      console.log(this.productAttributes);
+  // adds nessesary css class to active attribute button
+  makeAttributeButtonActive(e) {
+    if (
+      !this.product.inStock ||
+      e.target.classList.contains(
+        "text-attribute-active" || "swatch-attribute-active"
+      )
+    )
       return;
-    }
-    this.productAttributes.find((item) => item.name === attr.name).value =
-      attr.value;
+
+    const className = `${e.target.classList}-active`;
+    const parentNode = e.target.parentNode;
+
+    [...parentNode.childNodes]
+      .find(
+        (node) =>
+          node.dataset.attributeValue === e.target.dataset.attributeValue
+      )
+      .classList.add(className);
+
+    [...parentNode.childNodes]
+      .filter(
+        (node) =>
+          node.dataset.attributeValue !== e.target.dataset.attributeValue
+      )
+      .forEach((item) => item.classList.remove(className));
   }
 
   render() {
@@ -106,52 +123,50 @@ class ProductDescriptionPage extends React.Component {
         className="product-page-content"
         onClick={this.props.closeCurrencyMenuFromOutside}>
         <aside className="product-page-gallery">
+          {" "}
           {this.product.gallery.map((img) => {
-            return (
-              <img
-                key={img}
-                src={img}
-                width="88px"
-                alt="product gallery"
-                className="product-page-gallery-item"
-                onClick={(e) => this.chooseProductImage(e)}
-              />
-            );
-          })}
-        </aside>
+            return <ProductCardGalleryImage img={img} key={img} />;
+          })}{" "}
+        </aside>{" "}
         <main className="product-page-description-container">
-          <div className="product-page-img-wrapper">
-            <img
-              src={this.product.gallery[0]}
-              alt="product"
-              className="product-page-img"
-            />
-          </div>
+          <ProductCardMainImage productMainImage={this.product.gallery[0]} />{" "}
           <div className="product-page-description">
-            <span className="product-page-brand"> {this.product.brand}</span>
+            <span className="product-page-brand"> {this.product.brand} </span>{" "}
             <br />
-            <span className="product-page-name"> {this.product.name} </span>
+            <span className="product-page-name">
+              {" "}
+              {this.product.name}{" "}
+            </span>{" "}
             <div className="product-page-attributes">
-              {this.showAttributesIfpresent()}
+              {" "}
+              {this.showAttributesIfpresent()}{" "}
               <span className="product-page-price-title"> Price </span> <br />
               <span className="product-page-price">
-                {this.props.currency}
+                {" "}
+                {this.props.currency}{" "}
                 {
                   this.product.prices.find(
                     (item) => item.currency.symbol === this.props.currency
                   ).amount
-                }
-              </span>
+                }{" "}
+              </span>{" "}
               <br />
-              <button
-                className="product-page-add-to-card"
-                onClick={() => this.addProductToCard()}>
-                add to card
-              </button>
-              <div className="product-page-description-text"></div>
-            </div>
-          </div>
-        </main>
+              <AddToCardButton
+                label={this.product.inStock ? "add to card" : "out of stock"}
+                product={this.product}
+                productAttributes={this.productAttributes}
+                productInCard={this.props.productInCard}
+                setStateFromChildComponent={
+                  this.props.setStateFromChildComponent
+                }
+              />{" "}
+              <p className="product-attributes-required-label product-page-attributes-required">
+                Please, specify product attributes like color, size, etc{" "}
+              </p>{" "}
+              <div className="product-page-description-text"> </div>{" "}
+            </div>{" "}
+          </div>{" "}
+        </main>{" "}
       </section>
     );
   }

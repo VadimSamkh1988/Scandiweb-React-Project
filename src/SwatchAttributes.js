@@ -1,4 +1,5 @@
 import React from "react";
+import SwatchAttributeButton from "./SwatchAttributeButton";
 
 export default class SwatchAttributes extends React.Component {
   render() {
@@ -10,16 +11,12 @@ export default class SwatchAttributes extends React.Component {
         <div className="product-page-color">
           {this.props.attr.items.map((item) => {
             return (
-              <button
-                key={item.id}
-                className="color-attribute"
-                style={{ backgroundColor: `${item.value}` }}
-                onClick={() =>
-                  this.props.getProductAttributeValue({
-                    name: this.props.attr.name.toLowerCase(),
-                    value: item.id.toLowerCase(),
-                  })
-                }
+              <SwatchAttributeButton
+                getProductAttributeValue={this.props.getProductAttributeValue}
+                makeAttributeButtonActive={this.props.makeAttributeButtonActive}
+                attr={this.props.attr}
+                attrItem={item}
+                key={`${this.props.attr.name + item.value}`}
               />
             );
           })}

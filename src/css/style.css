@@ -454,6 +454,12 @@ a {
     color: #1d1f22;
 }
 
+.product-page-attributes-required {
+    position: absolute;
+    top: 550px !important;
+    left: 1100px !important;
+}
+
 .product-attributes-required-label {
     position: absolute;
     top: 350px;
@@ -535,7 +541,7 @@ a {
 }
 
 .product-page-price-title,
-.product-page-size-title,
+.product-page-text-title,
 .product-page-color-title {
     display: block;
     font-family: "Roboto Condensed", sans-serif;
@@ -559,14 +565,14 @@ a {
     margin-bottom: 10px;
 }
 
-.product-page-size,
+.product-page-text,
 .product-page-color {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 25px;
 }
 
-.size-attribute {
+.text-attribute {
     background: #fff;
     width: 63px;
     height: 45px;
@@ -579,20 +585,24 @@ a {
     margin-right: 12px;
 }
 
-.size-attribute:hover {
+.text-attribute-active {
     background: #000;
     color: #fff;
 }
 
-.color-attribute {
+.swatch-attribute {
+    border: none;
     width: 36px;
     height: 36px;
     left: 0px;
     top: 0px;
-    border: 1px solid #5ece7b;
     box-sizing: border-box;
     margin-right: 12px;
     cursor: pointer;
+}
+
+.swatch-attribute-active {
+    border: 3px solid #5ece7b;
 }
 
 .product-page-add-to-card {
