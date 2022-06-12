@@ -31,6 +31,8 @@ export default class Product extends React.Component {
   addProductToCard(e) {
     const productCardLayout = e.target.parentElement;
     const productInCard = this.props.productInCard || [];
+    let totalQuantityOfProductsInCard =
+      this.props.totalQuantityOfProductsInCard;
 
     if (this.props.attributes.length) {
       const attributesRequiredLabel = productCardLayout.querySelector(
@@ -43,13 +45,21 @@ export default class Product extends React.Component {
       return;
     }
 
-    productInCard.push(
-      this.props.products.find(
-        (product) => product.id === productCardLayout.dataset.productId
-      )
-    );
+    productInCard.find(
+      (product) => product.id === productCardLayout.dataset.productId
+    )
+      ? (productInCard.find(
+          (product) => product.id === productCardLayout.dataset.productId
+        ).quantity += 1)
+      : productInCard.push({
+          id: productCardLayout.dataset.productId,
+          quantity: 1,
+          attributes: [],
+        });
+    totalQuantityOfProductsInCard += 1;
     this.props.setStateFromChildComponent({
       productInCard,
+      totalQuantityOfProductsInCard,
     });
     localStorage.setItem("productInCard", JSON.stringify(productInCard));
   }

@@ -10,6 +10,7 @@ export default class CardOverlayProductCount extends React.Component {
             className="add-item"
             dataSigh="+"
             changeItemQuantity={this.props.changeItemQuantity}
+            count={this.props.count}
             id={this.props.id}
           />
           <span className="item-count">{this.props.count}</span>
@@ -17,6 +18,7 @@ export default class CardOverlayProductCount extends React.Component {
             className="substrat-item"
             dataSigh="-"
             changeItemQuantity={this.props.changeItemQuantity}
+            count={this.props.count}
             id={this.props.id}
           />
         </div>

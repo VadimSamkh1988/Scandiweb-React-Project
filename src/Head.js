@@ -64,9 +64,13 @@ export default class Head extends React.Component {
     const bag = document.querySelector(".bag-container");
     const emptyBag = document.querySelector(".product-bag-empty");
     const background = document.querySelector(".background-layout");
+    function toggleBag() {
+      bag.classList.toggle("active");
+      background.classList.toggle("active");
+    }
 
     this.props.productInCard && this.props.productInCard.length
-      ? bag.classList.toggle("active")(background.classList.toggle("active"))
+      ? toggleBag()
       : emptyBag.classList.toggle("active");
     setTimeout(() => {
       emptyBag.classList.toggle("active");
@@ -104,6 +108,9 @@ export default class Head extends React.Component {
           currency={this.props.currency}
           toggleMenus={this.toggleMenus}
           closeCurrencyMenuFromOutside={this.props.closeCurrencyMenuFromOutside}
+          totalQuantityOfProductsInCard={
+            this.props.totalQuantityOfProductsInCard
+          }
         />
         <CardOverlay {...this.props} />
 

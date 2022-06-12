@@ -3,6 +3,10 @@ import React from "react";
 export default class AddToCardButton extends React.Component {
   /* adding product to card if all nessesary attributes are choosen */
   addProductToCard() {
+    console.log(this.props.productInCard);
+    let totalQuantityOfProductsInCard =
+      this.props.totalQuantityOfProductsInCard;
+
     if (
       this.props.product.attributes.length === 0 ||
       !(
@@ -13,10 +17,14 @@ export default class AddToCardButton extends React.Component {
     ) {
       this.props.productInCard
         ? this.props.setStateFromChildComponent({
-            productInCard: [...this.props.productInCard, this.props.product],
+            productInCard: [
+              ...this.props.productInCard,
+              { id: this.props.product.id, quantity: 1, attributes: [] },
+            ],
           })
         : this.props.setStateFromChildComponent({
             productInCard: [this.props.product],
+            totalQuantityOfProductsInCard: (totalQuantityOfProductsInCard += 1),
           });
       return;
     }

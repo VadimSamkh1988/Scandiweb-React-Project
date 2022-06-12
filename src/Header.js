@@ -7,10 +7,10 @@ import "../src/css/style.css";
 export default class Header extends React.Component {
   // showing product quantity in the product bag
   showProductQuantityInCard() {
-    if (this.props.productInCard && this.props.productInCard.length)
+    if (this.props.totalQuantityOfProductsInCard > 0)
       return (
         <div className="bag-switcher-count">
-          {this.props.productInCard.length}
+          {this.props.totalQuantityOfProductsInCard}
         </div>
       );
   }

@@ -23,13 +23,13 @@ class App extends React.Component {
         localStorage.getItem("productInCard") !== ""
           ? JSON.parse(localStorage.getItem("productInCard"))
           : "",
+      totalQuantityOfProductsInCard: 0,
     };
 
     this.queryProductData = this.queryProductData.bind(this);
     this.chooseCurrency = this.chooseCurrency.bind(this);
     this.setStateFromChildComponent =
       this.setStateFromChildComponent.bind(this);
-    this.changeItemQuantity = this.changeItemQuantity.bind(this);
     this.setCategory = this.setCategory.bind(this);
   }
 
@@ -56,32 +56,6 @@ class App extends React.Component {
   chooseCurrency(e) {
     this.setState({ ...this.state, currency: e.target.dataset.currency });
     localStorage.setItem("currency", JSON.stringify(e.target.dataset.currency));
-  }
-
-  // changing product quantity from product card overlay
-  changeItemQuantity(e, id) {
-    const sigh = e.target.dataset.sigh;
-    const background = document.querySelector(".background-layout");
-
-    if (this.state.productInCard.length === 1 && sigh === "-") {
-      this.setState({ ...this.state, productInCard: [] });
-      background.classList.remove("active");
-      localStorage.removeItem("productInCard");
-      return;
-    }
-
-    let productInCard = [...this.state.productInCard];
-    const newProduct = productInCard.find((product) => product.id === id);
-    if (sigh === "+") {
-      productInCard.push(newProduct);
-      this.setState({ ...this.state, productInCard });
-      localStorage.setItem("productInCard", JSON.stringify(productInCard));
-      return;
-    }
-
-    productInCard.splice(productInCard.indexOf(newProduct), 1);
-    this.setState({ ...this.state, productInCard });
-    localStorage.setItem("productInCard", JSON.stringify(productInCard));
   }
 
   // closing currencyMenu by clicking outside of it
@@ -121,11 +95,14 @@ class App extends React.Component {
       <BrowserRouter>
         <Head
           productInCard={this.state.productInCard}
+          totalQuantityOfProductsInCard={
+            this.state.totalQuantityOfProductsInCard
+          }
           currency={this.state.currency}
           productData={this.products}
           chooseCurrency={this.chooseCurrency}
-          changeItemQuantity={this.changeItemQuantity}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
+          setStateFromChildComponent={this.setStateFromChildComponent}
         />
         <Routes>
           <Route
@@ -160,9 +137,11 @@ class App extends React.Component {
                 products={this.products}
                 closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
                 currency={this.state.currency}
-                changeItemQuantity={this.changeItemQuantity}
                 setStateFromChildComponent={this.setStateFromChildComponent}
                 productInCard={this.state.productInCard}
+                totalQuantityOfProductsInCard={
+                  this.state.totalQuantityOfProductsInCard
+                }
               />
             }></Route>
           <Route
