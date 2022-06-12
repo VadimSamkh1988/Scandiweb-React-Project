@@ -77,7 +77,13 @@ export default class CardOverlay extends React.Component {
             <h2 className="bag-container-title">
               My Bag,
               <span className="bag-items-quantity">
-                {`${this.props.totalQuantityOfProductsInCard} items`}
+                {`${this.props.productInCard
+                  .map((product) => product.quantity)
+                  .reduce(
+                    (previousValue, currentValue) =>
+                      previousValue + currentValue,
+                    0
+                  )} items`}
               </span>
             </h2>
             {/* {this.products.map((product) => (

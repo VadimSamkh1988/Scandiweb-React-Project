@@ -23,7 +23,6 @@ class App extends React.Component {
         localStorage.getItem("productInCard") !== ""
           ? JSON.parse(localStorage.getItem("productInCard"))
           : "",
-      totalQuantityOfProductsInCard: 0,
     };
 
     this.queryProductData = this.queryProductData.bind(this);
@@ -95,9 +94,6 @@ class App extends React.Component {
       <BrowserRouter>
         <Head
           productInCard={this.state.productInCard}
-          totalQuantityOfProductsInCard={
-            this.state.totalQuantityOfProductsInCard
-          }
           currency={this.state.currency}
           productData={this.products}
           chooseCurrency={this.chooseCurrency}
@@ -139,9 +135,6 @@ class App extends React.Component {
                 currency={this.state.currency}
                 setStateFromChildComponent={this.setStateFromChildComponent}
                 productInCard={this.state.productInCard}
-                totalQuantityOfProductsInCard={
-                  this.state.totalQuantityOfProductsInCard
-                }
               />
             }></Route>
           <Route

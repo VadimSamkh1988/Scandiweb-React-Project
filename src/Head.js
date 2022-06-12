@@ -108,9 +108,6 @@ export default class Head extends React.Component {
           currency={this.props.currency}
           toggleMenus={this.toggleMenus}
           closeCurrencyMenuFromOutside={this.props.closeCurrencyMenuFromOutside}
-          totalQuantityOfProductsInCard={
-            this.props.totalQuantityOfProductsInCard
-          }
         />
         <CardOverlay {...this.props} />
 

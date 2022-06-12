@@ -5,16 +5,6 @@ import bag from "./images/bag.svg";
 import "../src/css/style.css";
 
 export default class Header extends React.Component {
-  // showing product quantity in the product bag
-  showProductQuantityInCard() {
-    if (this.props.totalQuantityOfProductsInCard > 0)
-      return (
-        <div className="bag-switcher-count">
-          {this.props.totalQuantityOfProductsInCard}
-        </div>
-      );
-  }
-
   render() {
     return (
       <nav className="header" onClick={(e) => this.props.toggleMenus(e)}>
@@ -50,7 +40,18 @@ export default class Header extends React.Component {
             />
           </li>
         </ul>
-        {this.showProductQuantityInCard()}
+        {this.props.productInCard ? (
+          <div className="bag-switcher-count">
+            {this.props.productInCard
+              .map((product) => product.quantity)
+              .reduce(
+                (previousValue, currentValue) => previousValue + currentValue,
+                0
+              )}
+          </div>
+        ) : (
+          ""
+        )}
       </nav>
     );
   }
