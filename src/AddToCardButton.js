@@ -1,26 +1,31 @@
 import React from "react";
 
 export default class AddToCardButton extends React.Component {
-  /* adding product to card if all nessesary attributes are choosen */
+  /* adding product to card from product page, if all nessesary attributes are choosen */
   addProductToCard() {
     if (
+      // if all nessesary attributes are chosen if present
       this.props.product.attributes.length === 0 ||
-      !(
-        this.props.productAttributes.length === 0 ||
-        this.props.productAttributes.length !==
-          this.props.product.attributes.length
-      )
+      this.props.productAttributes.length !== 0
     ) {
       this.props.productInCard
         ? this.props.setStateFromChildComponent({
             productInCard: [
               ...this.props.productInCard,
-              { id: this.props.product.id, quantity: 1, attributes: [] },
+              {
+                id: this.props.product.id,
+                quantity: 1,
+                attributes: this.props.productAttributes,
+              },
             ],
           })
         : this.props.setStateFromChildComponent({
             productInCard: [
-              { id: this.props.product.id, quantity: 1, attributes: [] },
+              {
+                id: this.props.product.id,
+                quantity: 1,
+                attributes: this.props.productAttributes,
+              },
             ],
           });
       return;

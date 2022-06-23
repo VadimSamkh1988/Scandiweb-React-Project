@@ -49,9 +49,7 @@ export default class Header extends React.Component {
                 0
               )}
           </div>
-        ) : (
-          ""
-        )}
+        ) : null}
       </nav>
     );
   }

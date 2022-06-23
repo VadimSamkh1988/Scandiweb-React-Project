@@ -103,12 +103,7 @@ export default class Head extends React.Component {
   render() {
     return (
       <>
-        <Header
-          productInCard={this.props.productInCard}
-          currency={this.props.currency}
-          toggleMenus={this.toggleMenus}
-          closeCurrencyMenuFromOutside={this.props.closeCurrencyMenuFromOutside}
-        />
+        <Header {...this.props} toggleMenus={this.toggleMenus} />
         <CardOverlay {...this.props} />
 
         <ul className="currency-switcher-menu"></ul>

@@ -48,12 +48,12 @@ class App extends React.Component {
 
   // changing state from child components
   setStateFromChildComponent(obj) {
-    this.setState({ ...this.state, ...obj });
+    this.setState(obj);
   }
 
   // choosing currency from currency changing menu
   chooseCurrency(e) {
-    this.setState({ ...this.state, currency: e.target.dataset.currency });
+    this.setState({ currency: e.target.dataset.currency });
     localStorage.setItem("currency", JSON.stringify(e.target.dataset.currency));
   }
 
@@ -93,8 +93,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Head
-          productInCard={this.state.productInCard}
-          currency={this.state.currency}
+          {...this.state}
           productData={this.products}
           chooseCurrency={this.chooseCurrency}
           closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
@@ -108,7 +107,6 @@ class App extends React.Component {
                 <Categories
                   category={this.state.category}
                   setCategory={this.setCategory}
-                  client={this.client}
                   closeCurrencyMenuFromOutside={
                     this.closeCurrencyMenuFromOutside
                   }
@@ -130,11 +128,10 @@ class App extends React.Component {
             path="/products/:id"
             element={
               <ProductDescriptionPage
+                {...this.state}
                 products={this.products}
                 closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
-                currency={this.state.currency}
                 setStateFromChildComponent={this.setStateFromChildComponent}
-                productInCard={this.state.productInCard}
               />
             }></Route>
           <Route
