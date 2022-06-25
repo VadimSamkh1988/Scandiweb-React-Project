@@ -54,6 +54,9 @@ a {
 }
 
 .currency-switcher-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 20px;
     cursor: pointer;
 }
@@ -68,27 +71,32 @@ a {
     right: 0;
     margin-top: 0;
     margin-right: 125px;
+    margin-bottom: 0;
+    padding: 0;
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     z-index: 3;
     text-transform: uppercase;
     background-color: #fff;
 }
 
-.currency-switcher-item {
+.currency-switcher-menu-item {
     font-family: "Raleway";
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 160%;
     color: #1d1f22;
-    margin-bottom: 20px;
+    padding: 10px 20px;
     cursor: pointer;
     border-bottom: 2px solid rgb(255, 255, 255, 0);
 }
 
-.currency-switcher-item:hover {
-    color: #5ece7b;
-    border-bottom: 2px solid #5ece7b;
+.currency-switcher-menu-item:hover {
+    background: #eee;
+}
+
+.active-item {
+    background: #eee;
 }
 
 .bag-switcher {

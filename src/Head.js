@@ -19,7 +19,7 @@ export default class Head extends React.Component {
       currenciesList.insertAdjacentHTML(
         "beforeend",
         `<li
-          class="currency-switcher-item"
+          class="currency-switcher-menu-item"
           key="${item.currency.symbol}"
           data-currency="${item.currency.symbol}">
         ${item.currency.symbol}  ${item.currency.label}
@@ -29,7 +29,7 @@ export default class Head extends React.Component {
 
     [...currenciesList.childNodes]
       .find((node) => node.dataset.currency === this.props.currency)
-      .classList.add("active-category");
+      .classList.add("active-item");
     currenciesList.childNodes.forEach((item) =>
       item.addEventListener("click", (e) => this.clickOnCurrencyMenu(e))
     );
@@ -46,11 +46,13 @@ export default class Head extends React.Component {
     if (!switcher.childNodes.length) this.showCurrencyLabelsAndSymbols();
   }
 
-  // highlights active currency with green color
+  // highlights active currency with grey background
   styleCurrencyItem(e) {
-    const allCurrencies = document.querySelectorAll(".currency-switcher-item");
-    allCurrencies.forEach((item) => item.classList.remove("active-category"));
-    e.target.classList.add("active-category");
+    const allCurrencies = document.querySelectorAll(
+      ".currency-switcher-menu-item"
+    );
+    allCurrencies.forEach((item) => item.classList.remove("active-item"));
+    e.target.classList.add("active-item");
   }
 
   // both chooseCurrency and styleCurrency in single function
