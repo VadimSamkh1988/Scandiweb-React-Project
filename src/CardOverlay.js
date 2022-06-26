@@ -43,36 +43,12 @@ export default class CardOverlay extends React.Component {
     localStorage.setItem("productInCard", JSON.stringify(productInCard));
   }
 
-  // sortProductsByAttributes() {
-  //   if (this.props.productInCard && this.props.productInCard.length)
-  //     this.props.productInCard.map((product) => {
-  //       if (
-  //         !this.products.includes(product.id) &&
-  //         product.attributes.length === 0
-  //       )
-  //         this.products.push({
-  //           id: product.id,
-  //           attributes: product.attributes,
-  //           quantity: 1,
-  //         });
-  //     });
-
-  //   if (this.props.productInCard && this.props.productInCard.length)
-  //     this.props.productInCard.map((product) => {
-  //       if (product.attributes.length !== 0)
-  //         this.products.push({
-  //           id: product.id,
-  //           attributes: product.attributes,
-  //           quantity: 1,
-  //         });
-  //     });
-  // }
-
   render() {
-    // this.sortProductsByAttributes();
     return (
       <>
-        {this.props.productInCard && this.props.productInCard.length ? (
+        {this.props.productInCard &&
+        this.props.productData.length > 0 &&
+        this.props.productInCard.length > 0 ? (
           <section className="bag-container">
             <h2 className="bag-container-title">
               My Bag,
@@ -86,36 +62,28 @@ export default class CardOverlay extends React.Component {
                   )} items`}
               </span>
             </h2>
-            {/* {this.products.map((product) => (
+            {this.props.productInCard.map((product) => (
               <>
                 <div className="bag-container-item">
                   <CardOverlayProductDescription
-                    product={this.props.productInCard.find(
+                    product={this.props.productData.find(
                       (item) => item.id === product.id
                     )}
                     currency={this.props.currency}
-                    key={
-                      this.props.productInCard.find(
-                        (item) => item.id === product.id
-                      ).id
-                    }
+                    key={product.id}
                   />
                   <CardOverlayProductCount
                     changeItemQuantity={this.changeItemQuantity}
-                    product={this.props.productInCard.find(
+                    product={this.props.productData.find(
                       (item) => item.id === product.id
                     )}
                     count={product.quantity}
-                    id={
-                      this.props.productInCard.find(
-                        (item) => item.id === product.id
-                      ).id
-                    }
+                    id={product.id}
                     key={product.id}
                   />
                 </div>
               </>
-            ))} */}
+            ))}
             <CardOverlayProductsTotalPrice {...this.props} />
             <div className="bag-container-footer">
               <button className="bag-container-footer-manage">view bag</button>
