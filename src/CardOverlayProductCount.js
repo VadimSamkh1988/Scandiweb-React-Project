@@ -12,6 +12,7 @@ export default class CardOverlayProductCount extends React.Component {
             changeItemQuantity={this.props.changeItemQuantity}
             count={this.props.count}
             id={this.props.id}
+            attributesCollection={this.props.attributesCollection}
           />
           <span className="item-count">{this.props.count}</span>
           <ChangeItemQuantityButton
@@ -20,6 +21,7 @@ export default class CardOverlayProductCount extends React.Component {
             changeItemQuantity={this.props.changeItemQuantity}
             count={this.props.count}
             id={this.props.id}
+            attributesCollection={this.props.attributesCollection}
           />
         </div>
         <img

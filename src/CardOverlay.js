@@ -10,35 +10,40 @@ export default class CardOverlay extends React.Component {
   }
 
   // changing product quantity from product card overlay
-  changeItemQuantity(e, id) {
+  changeItemQuantity(e, attributesCollection) {
     const sigh = e.target.dataset.sigh;
     const background = document.querySelector(".background-layout");
+    const productInCard = [...this.props.productInCard];
+    let product = productInCard.find(
+      (product) => product.attributesCollection === attributesCollection
+    );
 
-    if (this.props.productInCard.length === 1 && sigh === "-") {
-      // this.props.setStateFromChildComponent({ productInCard: [] });
-      this.products = [];
+    sigh === "+" ? (product.quantity += 1) : (product.quantity -= 1);
+
+    if (
+      productInCard.find(
+        (product) => product.attributesCollection === attributesCollection
+      ).quantity === 0
+    ) {
+      productInCard.splice(
+        productInCard.indexOf(
+          productInCard.find(
+            (product) =>
+              product.attributesCollection === attributesCollection &&
+              product.quantity === 0
+          )
+        ),
+        1
+      );
+    }
+
+    if (productInCard.length === 0) {
       background.classList.remove("active");
       localStorage.removeItem("productInCard");
+      this.props.setStateFromChildComponent({ productInCard: [] });
       return;
     }
 
-    let productInCard = [...this.props.productInCard];
-    const newProduct = productInCard.find((product) => product.id === id);
-    if (sigh === "+") {
-      if (
-        this.products.find((product) => product.id === id).attributes.length !==
-        0
-      )
-        productInCard.push(newProduct);
-
-      this.products.find((product) => product.id === id).quantity += 1;
-      this.props.setStateFromChildComponent({ productInCard });
-      localStorage.setItem("productInCard", JSON.stringify(productInCard));
-      return;
-    }
-
-    productInCard.splice(productInCard.indexOf(newProduct), 1);
-    this.products.find((product) => product.id === id).quantity -= 1;
     this.props.setStateFromChildComponent({ productInCard });
     localStorage.setItem("productInCard", JSON.stringify(productInCard));
   }
@@ -79,7 +84,8 @@ export default class CardOverlay extends React.Component {
                     )}
                     count={product.quantity}
                     id={product.id}
-                    key={product.id}
+                    key={product.attributesCollection}
+                    attributesCollection={product.attributesCollection}
                   />
                 </div>
               </>

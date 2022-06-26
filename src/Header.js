@@ -40,7 +40,7 @@ export default class Header extends React.Component {
             />
           </li>
         </ul>
-        {this.props.productInCard ? (
+        {this.props.productInCard && this.props.productInCard.length > 0 ? (
           <div className="bag-switcher-count">
             {this.props.productInCard
               .map((product) => product.quantity)
