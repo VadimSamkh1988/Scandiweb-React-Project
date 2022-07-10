@@ -11,7 +11,11 @@ export default class CardOverlayProductDescription extends React.Component {
           <div className="bag-item-attributes">
             {attr.items.map((item) =>
               attr.type === "text" ? (
-                <button className="bag-item-attributes-icon">
+                <button
+                  className="bag-item-attributes-icon"
+                  data-attribute-type={attr.type}
+                  data-attribute-name={attr.name}
+                  data-attribute-value={item.value}>
                   {item.value}
                 </button>
               ) : (
@@ -21,6 +25,9 @@ export default class CardOverlayProductDescription extends React.Component {
                     backgroundColor: `${item.value}`,
                     border: "none",
                   }}
+                  data-attribute-type={attr.type}
+                  data-attribute-name={attr.name}
+                  data-attribute-value={item.value}
                 />
               )
             )}
@@ -29,6 +36,7 @@ export default class CardOverlayProductDescription extends React.Component {
       );
     });
   }
+
   render() {
     return (
       <div className="bag-container-item-description">

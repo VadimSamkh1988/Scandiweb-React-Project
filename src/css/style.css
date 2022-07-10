@@ -311,10 +311,11 @@ a {
     justify-content: center;
     width: 24px;
     height: 24px;
-    background: rgba(166, 166, 166, 0.2);
-    border: 1px solid #a6a6a6;
+    background: #fff;
+    border: 1px solid #1d1f22;
     box-sizing: border-box;
     margin-right: 8px;
+    cursor: pointer;
 }
 
 .bag-container-item-manage {
