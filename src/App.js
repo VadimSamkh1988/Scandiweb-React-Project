@@ -1,10 +1,6 @@
 import React from "react";
-import Head from "./Head";
-import ProductList from "./ProductList";
-import Categories from "./Categories";
 import { client, dataQuery } from "./dataQueries";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProductDescriptionPage from "./routes/ProductDescriptionPage";
+import AppsRender from "./AppsRender";
 import "./css/style.css";
 import "./css/normalize.css";
 
@@ -30,6 +26,8 @@ class App extends React.Component {
     this.setStateFromChildComponent =
       this.setStateFromChildComponent.bind(this);
     this.setCategory = this.setCategory.bind(this);
+    this.closeCurrencyMenuFromOutside =
+      this.closeCurrencyMenuFromOutside.bind(this);
   }
 
   products = [];
@@ -90,62 +88,7 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <BrowserRouter>
-        <Head
-          {...this.state}
-          productData={this.products}
-          chooseCurrency={this.chooseCurrency}
-          closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
-          setStateFromChildComponent={this.setStateFromChildComponent}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Categories
-                  category={this.state.category}
-                  setCategory={this.setCategory}
-                  closeCurrencyMenuFromOutside={
-                    this.closeCurrencyMenuFromOutside
-                  }
-                />
-
-                <ProductList
-                  {...this.state}
-                  products={this.products}
-                  queryProductData={this.queryProductData}
-                  setStateFromChildComponent={this.setStateFromChildComponent}
-                  closeCurrencyMenuFromOutside={
-                    this.closeCurrencyMenuFromOutside
-                  }
-                />
-              </>
-            }
-          />
-          <Route
-            path="/products/:id"
-            element={
-              <ProductDescriptionPage
-                {...this.state}
-                products={this.products}
-                closeCurrencyMenuFromOutside={this.closeCurrencyMenuFromOutside}
-                setStateFromChildComponent={this.setStateFromChildComponent}
-              />
-            }></Route>
-          <Route
-            path="*"
-            element={
-              <h2
-                className="page-not-found"
-                onClick={this.closeCurrencyMenuFromOutside}>
-                Opps! There is nothing here...
-              </h2>
-            }></Route>
-        </Routes>
-      </BrowserRouter>
-    );
+    return <AppsRender {...this} />;
   }
 }
 

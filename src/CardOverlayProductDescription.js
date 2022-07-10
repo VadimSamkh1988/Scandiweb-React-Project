@@ -1,6 +1,34 @@
 import React from "react";
 
 export default class CardOverlayProductDescription extends React.Component {
+  // displaing products attributes in product card
+  showAttributes() {
+    const attributes = this.props.product.attributes;
+    return attributes.map((attr) => {
+      return (
+        <>
+          <span className="bag-item-attr">{attr.name}:</span>
+          <div className="bag-item-attributes">
+            {attr.items.map((item) =>
+              attr.type === "text" ? (
+                <button className="bag-item-attributes-icon">
+                  {item.value}
+                </button>
+              ) : (
+                <button
+                  className="bag-item-attributes-icon"
+                  style={{
+                    backgroundColor: `${item.value}`,
+                    border: "none",
+                  }}
+                />
+              )
+            )}
+          </div>
+        </>
+      );
+    });
+  }
   render() {
     return (
       <div className="bag-container-item-description">
@@ -14,14 +42,7 @@ export default class CardOverlayProductDescription extends React.Component {
             ).amount
           }
         </p>
-        {this.props.product.attributes.length ? (
-          <div className="bag-item-attributes">
-            <div className="bag-item-attributes-icon">S</div>
-            <div className="bag-item-attributes-icon">M</div>
-          </div>
-        ) : (
-          ""
-        )}
+        {this.props.product.attributes.length ? this.showAttributes() : null}
       </div>
     );
   }

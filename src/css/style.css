@@ -199,7 +199,7 @@ a {
 }
 
 .bag-container-item-description {
-    margin-right: 40px;
+    width: 170px;
 }
 
 .bag-container-title {
@@ -221,7 +221,8 @@ a {
 }
 
 .bag-item-brand,
-.bag-item-name {
+.bag-item-name,
+.bag-item-attr {
     display: block;
     font-style: normal;
     font-weight: 300;
@@ -320,7 +321,6 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-right: 10px;
     width: 24px;
 }
 
