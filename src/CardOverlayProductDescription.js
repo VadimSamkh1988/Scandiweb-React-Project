@@ -1,7 +1,18 @@
 import React from "react";
-import TextAttributeButton from "./TextAttributeButton";
 
 export default class CardOverlayProductDescription extends React.Component {
+  // displaing active attributes of the product
+  isAttributeActive(name, value) {
+    const attributes = this.props.productInCard.find(
+      (product) =>
+        product.attributesCollection === this.props.attributesCollection
+    ).attributes;
+
+    return attributes.find(
+      (attr) => attr.name === name.toLowerCase() && attr.value === value
+    );
+  }
+
   // displaing products attributes in product card
   showAttributes() {
     const attributes = this.props.product.attributes;
@@ -13,7 +24,11 @@ export default class CardOverlayProductDescription extends React.Component {
             {attr.items.map((item) =>
               attr.type === "text" ? (
                 <button
-                  className="bag-item-attributes-icon-text"
+                  className={
+                    this.isAttributeActive(attr.name, item.value)
+                      ? "bag-item-attributes-icon-text bag-item-attributes-icon-text-active"
+                      : "bag-item-attributes-icon-text"
+                  }
                   data-attribute-type={attr.type}
                   data-attribute-name={attr.name}
                   data-attribute-value={item.value}
@@ -22,7 +37,11 @@ export default class CardOverlayProductDescription extends React.Component {
                 </button>
               ) : (
                 <button
-                  className="bag-item-attributes-icon-swatch"
+                  className={
+                    this.isAttributeActive(attr.name, item.value)
+                      ? "bag-item-attributes-icon-swatch bag-item-attributes-icon-swatch-active"
+                      : "bag-item-attributes-icon-swatch"
+                  }
                   style={{
                     backgroundColor: `${item.value}`,
                     border: "none",

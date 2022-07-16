@@ -31,6 +31,7 @@ export default class CardOverlayRender extends React.Component {
                       (item) => item.id === product.id
                     )}
                     productInCard={this.props.productInCard}
+                    attributesCollection={product.attributesCollection}
                     currency={this.props.currency}
                     makeAttributeButtonActive={
                       this.props.makeAttributeButtonActive
