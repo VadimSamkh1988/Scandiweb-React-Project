@@ -21,7 +21,6 @@ class ProductDescriptionPage extends React.Component {
     localStorage.setItem("product", JSON.stringify(this.product));
 
     this.getProductAttributeValue = this.getProductAttributeValue.bind(this);
-    this.makeAttributeButtonActive = this.makeAttributeButtonActive.bind(this);
     this.showAttributesIfpresent = this.showAttributesIfpresent.bind(this);
   }
 
@@ -48,7 +47,7 @@ class ProductDescriptionPage extends React.Component {
             <TextAttributes
               attr={item}
               getProductAttributeValue={this.getProductAttributeValue}
-              makeAttributeButtonActive={this.makeAttributeButtonActive}
+              makeAttributeButtonActive={this.props.makeAttributeButtonActive}
               key={item.name}
             />
           );
@@ -57,7 +56,7 @@ class ProductDescriptionPage extends React.Component {
             <SwatchAttributes
               attr={item}
               getProductAttributeValue={this.getProductAttributeValue}
-              makeAttributeButtonActive={this.makeAttributeButtonActive}
+              makeAttributeButtonActive={this.props.makeAttributeButtonActive}
               key={item.name}
             />
           );
@@ -86,34 +85,6 @@ class ProductDescriptionPage extends React.Component {
     this.productAttributes.find(
       (item) => item.name === e.target.dataset.attributeName
     ).value = e.target.dataset.attributeValue;
-  }
-
-  // adds nessesary css class to active attribute button
-  makeAttributeButtonActive(e) {
-    if (
-      !this.product.inStock ||
-      e.target.classList.contains(
-        "text-attribute-active" || "swatch-attribute-active"
-      )
-    )
-      return;
-
-    const className = `${e.target.classList}-active`;
-    const parentNode = e.target.parentNode;
-
-    [...parentNode.childNodes]
-      .find(
-        (node) =>
-          node.dataset.attributeValue === e.target.dataset.attributeValue
-      )
-      .classList.add(className);
-
-    [...parentNode.childNodes]
-      .filter(
-        (node) =>
-          node.dataset.attributeValue !== e.target.dataset.attributeValue
-      )
-      .forEach((item) => item.classList.remove(className));
   }
 
   render() {

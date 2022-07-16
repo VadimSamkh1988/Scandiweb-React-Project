@@ -1,4 +1,5 @@
 import React from "react";
+import TextAttributeButton from "./TextAttributeButton";
 
 export default class CardOverlayProductDescription extends React.Component {
   // displaing products attributes in product card
@@ -12,15 +13,16 @@ export default class CardOverlayProductDescription extends React.Component {
             {attr.items.map((item) =>
               attr.type === "text" ? (
                 <button
-                  className="bag-item-attributes-icon"
+                  className="bag-item-attributes-icon-text"
                   data-attribute-type={attr.type}
                   data-attribute-name={attr.name}
-                  data-attribute-value={item.value}>
+                  data-attribute-value={item.value}
+                  onClick={(e) => this.props.makeAttributeButtonActive(e)}>
                   {item.value}
                 </button>
               ) : (
                 <button
-                  className="bag-item-attributes-icon"
+                  className="bag-item-attributes-icon-swatch"
                   style={{
                     backgroundColor: `${item.value}`,
                     border: "none",
@@ -28,6 +30,7 @@ export default class CardOverlayProductDescription extends React.Component {
                   data-attribute-type={attr.type}
                   data-attribute-name={attr.name}
                   data-attribute-value={item.value}
+                  onClick={(e) => this.props.makeAttributeButtonActive(e)}
                 />
               )
             )}

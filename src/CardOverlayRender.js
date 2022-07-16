@@ -32,6 +32,9 @@ export default class CardOverlayRender extends React.Component {
                     )}
                     productInCard={this.props.productInCard}
                     currency={this.props.currency}
+                    makeAttributeButtonActive={
+                      this.props.makeAttributeButtonActive
+                    }
                     key={product.id}
                   />
                   <CardOverlayProductCount

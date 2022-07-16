@@ -17,6 +17,7 @@ class AppsRender extends React.Component {
           chooseCurrency={this.props.chooseCurrency}
           closeCurrencyMenuFromOutside={this.props.closeCurrencyMenuFromOutside}
           setStateFromChildComponent={this.props.setStateFromChildComponent}
+          makeAttributeButtonActive={this.props.makeAttributeButtonActive}
         />
         <Routes>
           <Route
@@ -56,6 +57,7 @@ class AppsRender extends React.Component {
                 setStateFromChildComponent={
                   this.props.setStateFromChildComponent
                 }
+                makeAttributeButtonActive={this.props.makeAttributeButtonActive}
               />
             }></Route>
           <Route

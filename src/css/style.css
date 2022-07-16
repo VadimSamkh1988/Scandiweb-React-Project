@@ -244,14 +244,6 @@ a {
     display: flex;
 }
 
-.bag-item-attributes-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 0;
-    margin-right: 8px;
-    text-align: center;
-}
-
 .bag-container-total-price-count {
     display: flex;
     justify-content: space-between;
@@ -305,7 +297,8 @@ a {
     color: #fff;
 }
 
-.bag-item-attributes-icon {
+.bag-item-attributes-icon-text,
+.bag-item-attributes-icon-swatch {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -313,6 +306,8 @@ a {
     height: 24px;
     background: #fff;
     border: 1px solid #1d1f22;
+    border-radius: 0;
+    text-align: center;
     box-sizing: border-box;
     margin-right: 8px;
     cursor: pointer;
@@ -594,9 +589,10 @@ a {
     margin-right: 12px;
 }
 
-.text-attribute-active {
-    background: #000;
-    color: #fff;
+.text-attribute-active,
+.bag-item-attributes-icon-text-active {
+    background: #000 !important;
+    color: #fff !important;
 }
 
 .swatch-attribute {
@@ -610,8 +606,9 @@ a {
     cursor: pointer;
 }
 
-.swatch-attribute-active {
-    border: 3px solid #5ece7b;
+.swatch-attribute-active,
+.bag-item-attributes-icon-swatch-active {
+    border: 3px solid #5ece7b !important;
 }
 
 .product-page-add-to-card {

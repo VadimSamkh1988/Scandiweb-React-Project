@@ -10,7 +10,9 @@ export default class AttributeButton extends React.Component {
         data-attribute-name={this.props.attr.name.toLowerCase()}
         onClick={(e) => {
           this.props.getProductAttributeValue(e);
-          this.props.makeAttributeButtonActive(e);
+          if (!e.target.classList.contains("text-attribute-active")) {
+            this.props.makeAttributeButtonActive(e);
+          }
         }}>
         {this.props.attrItem.value}
       </button>

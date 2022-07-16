@@ -11,7 +11,9 @@ export default class SwatchAttributeButton extends React.Component {
         data-attribute-name={this.props.attr.name.toLowerCase()}
         onClick={(e) => {
           this.props.getProductAttributeValue(e);
-          this.props.makeAttributeButtonActive(e);
+          if (!e.target.classList.contains("swatch-attribute-active")) {
+            this.props.makeAttributeButtonActive(e);
+          }
         }}
       />
     );

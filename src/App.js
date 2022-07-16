@@ -28,6 +28,7 @@ class App extends React.Component {
     this.setCategory = this.setCategory.bind(this);
     this.closeCurrencyMenuFromOutside =
       this.closeCurrencyMenuFromOutside.bind(this);
+    this.makeAttributeButtonActive = this.makeAttributeButtonActive.bind(this);
   }
 
   products = [];
@@ -85,6 +86,22 @@ class App extends React.Component {
       "category",
       JSON.stringify(e.target.dataset.categoryName)
     );
+  }
+
+  // adds nessesary css class to active attribute button
+  makeAttributeButtonActive(e) {
+    const node = e.target;
+    const className = `${node.classList}-active`;
+    const parentNode = node.parentNode;
+
+    if (!node.classList.contains(className)) node.classList.add(className);
+
+    [...parentNode.childNodes]
+      .filter(
+        (childNode) =>
+          childNode.dataset.attributeValue !== node.dataset.attributeValue
+      )
+      .forEach((item) => item.classList.remove(className));
   }
 
   render() {
