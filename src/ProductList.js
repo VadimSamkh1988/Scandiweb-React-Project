@@ -14,7 +14,7 @@ export default class ProductList extends React.Component {
   }
 
   render() {
-    if (this.props.products.length) {
+    if (this.props.products) {
       return (
         <div
           className="product-card-wrapper"
@@ -23,8 +23,6 @@ export default class ProductList extends React.Component {
         </div>
       );
     }
-
-    this.props.queryProductData();
     return <h2>Loading products...</h2>;
   }
 }

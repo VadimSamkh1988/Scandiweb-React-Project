@@ -10,7 +10,7 @@ export default class CardOverlayProductsTotalPrice extends React.Component {
           {this.props.productInCard
             .map(
               (productInCard) =>
-                this.props.productData
+                this.props.data
                   .find((product) => product.id === productInCard.id)
                   .prices.find(
                     (price) => price.currency.symbol === this.props.currency

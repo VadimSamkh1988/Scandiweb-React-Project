@@ -13,7 +13,7 @@ class AppsRender extends React.Component {
       <BrowserRouter>
         <Head
           {...this.props.state}
-          productData={this.props.products}
+          {...this.props}
           chooseCurrency={this.props.chooseCurrency}
           closeCurrencyMenuFromOutside={this.props.closeCurrencyMenuFromOutside}
           setStateFromChildComponent={this.props.setStateFromChildComponent}
@@ -33,8 +33,7 @@ class AppsRender extends React.Component {
                 />
                 <ProductList
                   {...this.props.state}
-                  products={this.props.products}
-                  queryProductData={this.props.queryProductData}
+                  products={this.props.data}
                   setStateFromChildComponent={
                     this.props.setStateFromChildComponent
                   }
@@ -50,7 +49,7 @@ class AppsRender extends React.Component {
             element={
               <ProductDescriptionPage
                 {...this.props.state}
-                products={this.props.products}
+                products={this.props.data}
                 closeCurrencyMenuFromOutside={
                   this.props.closeCurrencyMenuFromOutside
                 }

@@ -15,7 +15,7 @@ export default class Head extends React.Component {
   showCurrencyLabelsAndSymbols() {
     const currenciesList = document.querySelector(".currency-switcher-menu");
 
-    this.props.productData[1].prices.forEach((item) => {
+    this.props.data[1].prices.forEach((item) => {
       currenciesList.insertAdjacentHTML(
         "beforeend",
         `<li

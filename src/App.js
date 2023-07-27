@@ -1,5 +1,4 @@
 import React from "react";
-import { client, dataQuery } from "./dataQueries";
 import AppsRender from "./AppsRender";
 import "./css/style.css";
 import "./css/normalize.css";
@@ -7,7 +6,6 @@ import "./css/normalize.css";
 class App extends React.Component {
   constructor() {
     super();
-
     this.state = {
       currency: localStorage.getItem("currency")
         ? JSON.parse(localStorage.getItem("currency"))
@@ -21,7 +19,6 @@ class App extends React.Component {
           : "",
     };
 
-    this.queryProductData = this.queryProductData.bind(this);
     this.chooseCurrency = this.chooseCurrency.bind(this);
     this.setStateFromChildComponent =
       this.setStateFromChildComponent.bind(this);
@@ -29,20 +26,6 @@ class App extends React.Component {
     this.closeCurrencyMenuFromOutside =
       this.closeCurrencyMenuFromOutside.bind(this);
     this.makeAttributeButtonActive = this.makeAttributeButtonActive.bind(this);
-  }
-
-  products = [];
-
-  // fetching product data from API
-  queryProductData() {
-    client
-      .query({
-        query: dataQuery,
-      })
-      .then((result) => {
-        this.products = result.data.category.products;
-        this.setState({ ...this.state });
-      });
   }
 
   // changing state from child components
@@ -105,8 +88,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <AppsRender {...this} />;
+    return <AppsRender {...this} {...this.props} />;
   }
 }
-
-export default <App />;
+export default App;

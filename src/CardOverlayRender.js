@@ -8,7 +8,7 @@ export default class CardOverlayRender extends React.Component {
     return (
       <>
         {this.props.productInCard &&
-        this.props.productData.length > 0 &&
+        this.props.data.length > 0 &&
         this.props.productInCard.length > 0 ? (
           <section className="bag-container">
             <h2 className="bag-container-title">
@@ -27,7 +27,7 @@ export default class CardOverlayRender extends React.Component {
               <>
                 <div className="bag-container-item">
                   <CardOverlayProductDescription
-                    product={this.props.productData.find(
+                    product={this.props.data.find(
                       (item) => item.id === product.id
                     )}
                     productInCard={this.props.productInCard}
@@ -40,7 +40,7 @@ export default class CardOverlayRender extends React.Component {
                   />
                   <CardOverlayProductCount
                     changeItemQuantity={this.props.changeItemQuantity}
-                    product={this.props.productData.find(
+                    product={this.props.data.find(
                       (item) => item.id === product.id
                     )}
                     count={product.quantity}

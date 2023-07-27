@@ -3,7 +3,7 @@ import React from "react";
 export default class AddToCardButton extends React.Component {
   /* checking if product with the same attributes is already present in product card */
   checkIfProductPresentInCard() {
-    if (
+    return (
       this.props.productInCard &&
       this.props.productInCard.find(
         (product) =>
@@ -13,8 +13,7 @@ export default class AddToCardButton extends React.Component {
               .map((item) => item.name.concat("", item.value))
               .toString()
       )
-    )
-      return true;
+    );
   }
 
   /* adding product to card from product page, if all nessesary attributes are choosen */
@@ -22,7 +21,6 @@ export default class AddToCardButton extends React.Component {
   addProductToCard() {
     if (this.checkIfProductPresentInCard()) {
       /* Product is already present in the Card with the same attributes, so we only increase product quantity */
-
       const productInCard = [...this.props.productInCard];
       productInCard.find(
         (product) =>
@@ -37,7 +35,6 @@ export default class AddToCardButton extends React.Component {
       });
     } else {
       /* Product is not present in the card with choosen attributes, adding product with this attributes to the card */
-
       this.props.productInCard
         ? this.props.setStateFromChildComponent({
             productInCard: [
