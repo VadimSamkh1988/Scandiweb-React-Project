@@ -1,5 +1,8 @@
+// import { StrictMode } from "react";
+// import { createRoot } from "react-dom"
+
+import { render } from "react-dom"
 import App from "./App";
-import { render } from "react-dom";
 import { withData } from "./withData";
 import { dataQuery } from "./dataQueries";
 
@@ -7,4 +10,13 @@ import { dataQuery } from "./dataQueries";
 const withProducts = withData(dataQuery);
 const ListWithProducts = withProducts(App);
 
-render(<ListWithProducts />, document.getElementById("root"));
+// const rootElement = document.getElementById("root");
+// const root = createRoot(rootElement);
+
+// root.render(
+//     <StrictMode>
+//         <ListWithProducts/>
+//     </StrictMode>
+// )
+
+render(<ListWithProducts />, document.getElementById("root")); 
