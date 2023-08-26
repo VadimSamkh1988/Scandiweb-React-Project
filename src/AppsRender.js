@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDescriptionPage from "./routes/ProductDescriptionPage";
 import "./css/style.css";
 import "./css/normalize.css";
+import TotalProductBag from "./routes/TotalProductBag";
 
 class AppsRender extends React.Component {
   render() {
@@ -59,6 +60,11 @@ class AppsRender extends React.Component {
                 makeAttributeButtonActive={this.props.makeAttributeButtonActive}
               />
             }></Route>
+            <Route
+             path="/products/total-product-bag"
+             element={ 
+              <TotalProductBag productInCard = {this.props.state.productInCard} {...this.props}/>}
+            />
           <Route
             path="*"
             element={

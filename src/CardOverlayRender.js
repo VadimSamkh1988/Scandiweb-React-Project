@@ -2,6 +2,7 @@ import React from "react";
 import CardOverlayProductCount from "./CardOverlayProductCount";
 import CardOverlayProductDescription from "./CardOverlayProductDescription";
 import CardOverlayProductsTotalPrice from "./CardOverlayProductsTotalPrice";
+import { Link } from "react-router-dom";
 
 export default class CardOverlayRender extends React.Component {
   render() {
@@ -53,7 +54,9 @@ export default class CardOverlayRender extends React.Component {
             ))}
             <CardOverlayProductsTotalPrice {...this.props} />
             <div className="bag-container-footer">
-              <button className="bag-container-footer-manage">view bag</button>
+              <Link to = {`/products/total-product-bag`}>
+                <button className="bag-container-footer-manage">view bag</button>
+              </Link>
               <button className="bag-container-footer-manage">check out</button>
             </div>
           </section>

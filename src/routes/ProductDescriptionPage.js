@@ -28,6 +28,7 @@ class ProductDescriptionPage extends React.Component {
 
   // parsing HMTL data with product description
   parseHTMLProductDescripionData() {
+    console.log(this.product.description)
     const parent = document.querySelector(".product-page-description-text");
     const parser = new DOMParser();
     let html = parser.parseFromString(this.product.description, "text/html");
