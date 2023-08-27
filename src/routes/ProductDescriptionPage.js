@@ -42,7 +42,7 @@ class ProductDescriptionPage extends React.Component {
   showAttributesIfpresent() {
     if (this.product.attributes.length > 0) {
       const attributes = this.product.attributes;
-      return attributes.map((item) => {
+      return attributes.map((item)=>{
         if (item.type === "text")
           return (
             <TextAttributes
@@ -61,7 +61,9 @@ class ProductDescriptionPage extends React.Component {
               key={item.name}
             />
           );
-      });
+        return 0;  
+      }
+      );
     }
   }
 

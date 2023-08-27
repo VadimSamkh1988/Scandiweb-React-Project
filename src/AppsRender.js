@@ -63,7 +63,7 @@ class AppsRender extends React.Component {
             <Route
              path="/products/total-product-bag"
              element={ 
-              <TotalProductBag productInCard = {this.props.state.productInCard} {...this.props}/>}
+              <TotalProductBag {...this.props.state} {...this.props}/>}
             />
           <Route
             path="*"

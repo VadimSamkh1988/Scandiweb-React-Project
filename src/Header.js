@@ -6,7 +6,7 @@ import "../src/css/style.css";
 
 export default class Header extends React.Component {
   render() {
-    console.log(this.props.productInCard);
+    
     return (
       <nav className="header" onClick={(e) => this.props.toggleMenus(e)}>
         <ul className="product-filter">

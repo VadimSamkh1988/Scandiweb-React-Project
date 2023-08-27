@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import CardOverlayProductDescription from "../CardOverlayProductDescription"
-import CardOverlayProductCount from "../CardOverlayProductCount"
+import  ProductInBag from "../ProductInBag"
 
 function withParams(Component) {
     return (props) => <Component params={useParams()} {...props} />;
@@ -10,51 +9,22 @@ function withParams(Component) {
 class TotalProductBag extends React.Component{
     
     render(){
-    return(<h1 style={{textAlign: "center", height: "500px"}}>Work is in progress</h1>
-//         <section className="bag-container">
-//     <h2 className="bag-container-title">
-//       CART
-//       <span className="bag-items-quantity">
-//         {`${this.props.productInCard
-//           .map((product) => product.quantity)
-//           .reduce(
-//             (previousValue, currentValue) =>
-//               previousValue + currentValue,
-//             0
-//           )} items`}
-//       </span>
-//     </h2>
-//     {this.props.productInCard.map((product) => (
-//       <>
-//         <div className="bag-container-item">
-//           <CardOverlayProductDescription
-//             product={this.props.data.find(
-//               (item) => item.id === product.id
-//             )}
-//             productInCard={this.props.productInCard}
-//             attributesCollection={product.attributesCollection}
-//             currency={this.props.currency}
-//             makeAttributeButtonActive={
-//               this.props.makeAttributeButtonActive
-//             }
-//             key={product.id}
-//           />
-//           <CardOverlayProductCount
-//             changeItemQuantity={this.props.changeItemQuantity}
-//             product={this.props.data.find(
-//               (item) => item.id === product.id
-//             )}
-//             count={product.quantity}
-//             id={product.id}
-//             key={product.attributesCollection}
-//             attributesCollection={product.attributesCollection}
-//           />
-//         </div>
-//       </>
-//     ))}
-//   </section>
+        
+        if((!this.props.productInCard)||this.props.productInCard.length === 0) return (
+            <h2 style={{textAlign: "center"}}>Bag is empty</h2>
         )
-    }
-}
 
+        return(
+            <>
+                <h2 className = "product-page-content" style={{textAlign: "left", textTransform: "uppercase"}}>cart</h2>
+                {this.props.productInCard.map(
+                product=>(<ProductInBag {...this.props} product = {product}/>))} 
+                <button className="product-page-add-to-card">
+                    <span style={{textTransform: "uppercase"}}>order</span>
+                </button>
+            </>)
+
+           }      
+}
+    
 export default withParams(TotalProductBag);
